@@ -1,0 +1,49 @@
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  .carousel .carousel-wrapper {
+    max-width: calc(100vw - 30px);
+    margin: 0 auto; }
+    .carousel .carousel-wrapper .slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: calc(100vh - 30px); }
+      @media screen and (orientation: landscape) {
+        .carousel .carousel-wrapper .slide {
+          flex-direction: row; } }
+      .carousel .carousel-wrapper .slide .intro {
+        margin: 20px 0;
+        color: #ccc; }
+        @media screen and (orientation: landscape) {
+          .carousel .carousel-wrapper .slide .intro {
+            margin: 0;
+            margin-left: 20px; } }
+        .carousel .carousel-wrapper .slide .intro .title {
+          margin-bottom: 0.5em;
+          color: #fff;
+          display: inline-block; }
+      .carousel .carousel-wrapper .slide .qrcode {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center; }
+        .carousel .carousel-wrapper .slide .qrcode img {
+          width: 80px; }
+          @media screen and (orientation: landscape) {
+            .carousel .carousel-wrapper .slide .qrcode img {
+              margin-top: 20px; } }
+        @media screen and (orientation: landscape) {
+          .carousel .carousel-wrapper .slide .qrcode {
+            position: static; } }
+      .carousel .carousel-wrapper .slide img {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+        max-width: 100%;
+        max-height: 95%; }
+        @media screen and (orientation: landscape) {
+          .carousel .carousel-wrapper .slide img {
+            max-width: 70%; } }

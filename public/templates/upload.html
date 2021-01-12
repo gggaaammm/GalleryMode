@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Upload management</title>
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+</head>
+<body>
+    <p>
+        latitide: <span id = "latitude"></span>&deg;<br />
+        longitude: <span id = "longitude"></span>&deg;<br />
+        recent user_id :<span id = "recent_id"></span><br />
+        recent upload time :<span id = "recent_upload"></span><br />
+    </p>
+    
+    <input id ="picture_name" placeholder ="enter image name" value="" ><br />
+    <input id ="picture_description" placeholder="describe your image" value=""><br />
+    <input id ="user_id" placeholder="enter your user_id" value=""><br />
+    <button id = "submit">submit your image</button>
+    <script type="text/javascript" src="js/geo.js"></script>
+
+    <form 
+      id='uploadForm' 
+      action='http://localhost:8051/up' 
+      method='post' 
+      encType="multipart/form-data">
+        <input type="file" name="sampleFile" />
+        <input type='submit' value='Upload!' />
+    </form>  
+    
+</body>

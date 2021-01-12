@@ -1,0 +1,25 @@
+{
+  "name": "gallerymode",
+  "version": "1.0.0",
+  "description": "This is a Gallery mode app by Steven Lee",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "gallery",
+    "picture",
+    "vote"
+  ],
+  "author": "Steven Lee",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "express-formidable": "^1.2.0",
+    "formidable": "^1.2.2",
+    "nedb": "^1.8.0",
+    "nodemon": "^2.0.6"
+  }
+}

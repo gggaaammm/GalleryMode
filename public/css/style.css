@@ -1,0 +1,180 @@
+.home .grid {
+  position: relative;
+  float: left;
+  width: 50%;
+  height: 50%;
+  margin: 0;
+  border: 1px solid #000; }
+  .home .grid.first {
+    width: 100%;
+    border: 0; }
+    @media screen and (orientation: landscape) {
+      .home .grid.first {
+        height: 100%;
+        width: 50%; } }
+  .home .grid .img {
+    background-color: #333;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%; }
+  .home .grid .txt {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px;
+    /* width: 55%; */
+    position: absolute;
+    left: 0;
+    top: 0; }
+    .home .grid .txt h4 {
+      font-size: 23px;
+      margin: 0; }
+  .home .grid .circle {
+    background-color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 2px 0;
+    right: 0;
+    bottom: 0;
+    margin: 10px;
+    color: #000;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
+
+.home .pics {
+  display: flex;
+  float: left;
+  flex-direction: column;
+  display: block;
+  border: 2px solid  #fff;
+  height: 50%;
+  width: 100%;
+  border: 1px solid #000;
+  border-left: 0px; }
+  @media screen and (orientation: landscape) {
+    .home .pics {
+      height: 100%;
+      width: 50%; } }
+
+.user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  .user .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    justify-self: start; }
+  .user .button-wrapper {
+    width: 70%;
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+    margin-bottom: 20px; }
+    .user .button-wrapper button {
+      margin-bottom: 20px; }
+  .user .tips {
+    font-size: 1.2rem; }
+
+.carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  .carousel .carousel-wrapper {
+    max-width: calc(100vw - 30px);
+    margin: 0 auto; }
+    .carousel .carousel-wrapper .slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: calc(100vh - 30px); }
+      @media screen and (orientation: landscape) {
+        .carousel .carousel-wrapper .slide {
+          flex-direction: row; } }
+      .carousel .carousel-wrapper .slide .intro {
+        margin: 20px 0;
+        color: #ccc; }
+        @media screen and (orientation: landscape) {
+          .carousel .carousel-wrapper .slide .intro {
+            margin: 0;
+            margin-left: 20px; } }
+        .carousel .carousel-wrapper .slide .intro .title {
+          margin-bottom: 0.5em;
+          color: #fff;
+          display: inline-block; }
+      .carousel .carousel-wrapper .slide .qrcode {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center; }
+        .carousel .carousel-wrapper .slide .qrcode img {
+          width: 80px; }
+          @media screen and (orientation: landscape) {
+            .carousel .carousel-wrapper .slide .qrcode img {
+              margin-top: 20px; } }
+        @media screen and (orientation: landscape) {
+          .carousel .carousel-wrapper .slide .qrcode {
+            position: static; } }
+       .carousel .carousel-wrapper .slide img {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+        max-width: 100%; 
+        max-height: 95%; } 
+        @media screen and (orientation: landscape) {
+          .carousel .carousel-wrapper .slide img {
+            max-width: 70%; } }
+
+.main.grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  .main.grid .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    justify-self: start; }
+  .main.grid .pics {
+    height: calc(100vh - 200px);
+    width: 100%;
+    overflow-y: auto;
+    margin-bottom: 20px; }
+    .main.grid .pics > .img {
+      /* modified to square */
+      float: left;
+      width: 280px; /*33.3%*/
+      height: 280px;/*140px*/
+      background-size: cover;
+      background-position: center center;
+      cursor: pointer; }
+      .main.grid .pics > .img .circle {
+        width: 30px;
+        height: 30px;
+        background-color: #ffc107;
+        border-radius: 15px;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        margin: 5px; }
+  .main.grid .tips {
+    font-size: 1.2rem; }
+
+* {
+  outline: none; }
+
+body {
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+  background-color: #222;
+  color: #fff; }
+
+.main {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; }

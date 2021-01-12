@@ -1,0 +1,34 @@
+.main.grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; }
+  .main.grid .title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    justify-self: start; }
+  .main.grid .pics {
+    height: calc(100vh - 200px);
+    width: 100%;
+    overflow-y: auto;
+    margin-bottom: 20px; }
+    .main.grid .pics > .img {
+      float: left;
+      width: 33.3%;
+      height: 140px;
+      background-size: cover;
+      background-position: center center;
+      cursor: pointer; }
+      .main.grid .pics > .img .circle {
+        width: 30px;
+        height: 30px;
+        background-color: #ffc107;
+        border-radius: 15px;
+        color: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        margin: 5px; }
+  .main.grid .tips {
+    font-size: 1.2rem; }

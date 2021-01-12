@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!---todo: delete this page, create upload button in voting page-->>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/manage.css">
+    <style>
+</style>
+</head>
+<body>
+    
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 list-group">
+                    <div class="row">
+                        <div class="col-md-12 offset-md-2" style="display: flex;">
+                            <div>
+                                <h1 class='top center'>FrameTalk</h1>
+                                <h4 class="center">powered by IoTtalk</h4>
+                                <h5 class='center'>Google Chrome Version</h5>
+                            </div>
+                            <div>
+                                <img class="img-thumbnail" style="width: 7rem; border: none;" src="logo/NCTU_logo.png">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="accordion">
+                        <div class="card">
+                            <div id="headingDisplay" class="card-header my_cursor" onclick="location.href = 'Upload';">
+                                <button class="btn btn-link homepage_label">Upload photos</button>
+                            </div>
+                        </div>
+
+						<!-- added 2020/07/30 -->
+                        <div class="card">
+                            <div id="timeout" class="card-header my_cursor" onclick="location.href = 'Vote';">
+                                <button class="btn btn-link homepage_label">Voting</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Frame Carousel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="main home clearfix">
+      <div class="first grid">
+        <div class="img" style="background-image: url('images/photo_4.jpeg')"></div>
+        <div class="txt">
+          <h4>圖片標題名稱</h4>
+          <h4>96票</h4>
+        </div>
+        <div class="circle">1</div>
+      </div>
+      <div class="pics clearfix">
+        <div class="grid">
+          <div class="img" style="background-image: url('/images/photo_5.jpeg')"></div>
+          <div class="txt">
+            <h4>圖片標題名稱</h4>
+            <h4>50票</h4>
+          </div>
+          <div class="circle">2</div>
+        </div>
+        <div class="grid">
+          <div class="img" style="background-image: url('/images/photo_6.jpeg')"></div>
+          <div class="txt">
+            <h4>圖片標題名稱</h4>
+            <h4>18票</h4>
+          </div>
+          <div class="circle">3</div>
+        </div>
+        <div class="grid">
+          <div class="img" style="background-image: url('/images/photo_7.jpeg')"></div>
+          <div class="txt">
+            <h4>圖片標題名稱</h4>
+            <h4>11票</h4>
+          </div>
+          <div class="circle">4</div>
+        </div>
+        <div class="grid">
+          <div class="img" style="background-image: url('/images/photo_8.jpeg')"></div>
+          <div class="txt">
+            <h4>圖片標題名稱</h4>
+            <h4>8票</h4>
+          </div>
+          <div class="circle">5</div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}" type="text/javascript"></script>
+  </body>
+</html>

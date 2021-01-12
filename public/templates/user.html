@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Frame Carousel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+  </head>
+  <body>
+    <div class="main user">
+      <div class="title">最佳圖片票選</div>
+      <div class="button-wrapper">
+        <button id = "btn-1" class="btn btn-warning btn-lg btn-block">圖片1</button>
+        <button id = "btn-2" class="btn btn-warning btn-lg btn-block">圖片2</button>
+        <button id = "btn-3" class="btn btn-warning btn-lg btn-block">圖片3</button>
+        <button id = "btn-4" class="btn btn-warning btn-lg btn-block">圖片4</button>
+        <button id = "btn-5" class="btn btn-warning btn-lg btn-block">圖片5</button>
+        <button id = "btn-6" class="btn btn-warning btn-lg btn-block">圖片6</button>
+      </div>
+        
+      <!--div class="tips">剩 00:00 公佈投票結果</div-->
+      <iframe style="width: 1920px; height: 100px; overflow: hidden;"  scrolling="no" frameborder="0" src="https://editor.p5js.org/gggaaammm/embed/5AuHW5xiE"></iframe>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script src="https://iottalk.github.io/iottalk-js/dan2.js"></script>
+    <script src="{{ url_for('static', filename='js/vote.js') }}" type="text/javascript"></script>
+  </body>
+</html>
