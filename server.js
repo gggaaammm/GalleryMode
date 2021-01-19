@@ -6,12 +6,16 @@ const Datastore = require('nedb');
 const fs = require('fs');
 const fileupload = require('express-fileupload');
 
+
 const formidable = require('formidable');
 const { response } = require('express');
 const { domainToASCII } = require('url');
+const { resolve } = require('path');
 
 // apply the express
 const app = express();
+
+
 
 
 
@@ -19,6 +23,8 @@ const app = express();
 app.use(express.static('public'))
 app.use(express.json({limit:'1mb'}));
 app.listen(8051, ()=> console.log('listening at port 8051'))
+
+
 
 // get on home.html
 app.get('/', function(req,res){
@@ -72,20 +78,25 @@ app.post('/api', (request, response)=>{
 
 app.post('/upload_photos', (request, response) => {
     //here, we can check if data completed
-    console.log("i got a request!");
-    console.log(request.body);
+    console.log("i got a request from upload photos!");
     const data = request.body;
+    console.log(request.body);
+    
     if(request.body.picture_name == '')
     {
       console.log("NULL!");
       response.redirect('/Upload');
     }
-    database.insert(data);
-    database.find({picture_name : 'eeee'}, function(err,docs){
-    docs.forEach(function(d) {
-        console.log('Found user:', d._id);
+    //before insert, we need to give it a unique picture id sort by number
+    database.count({},function(err,count){
+      console.log("we alreday have",count, " photos");
+      data.pic_id = count+1;
+      console.log(data.pic_id);
+      database.insert(data);
     });
-    });
+    
+    
+    
 
     
   })
@@ -125,13 +136,6 @@ app.get('/Client-home',(request, response)=>{
 app.use(fileupload());
 
 app.get('/carousel', (req,res)=>{
-  database.find({picture_name : 'eeee'}, function(err,docs){
-    docs.forEach(function(d) {
-        console.log('Found user:', d._id);
-      });
-    });
-
-
     var data = [];
     database.find({}, function(err,docs){
       docs.forEach(function(d) {
@@ -140,15 +144,15 @@ app.get('/carousel', (req,res)=>{
           data.push({
             file_name:d.file_name,
             picture_name: d.picture_name,
-            picture_description: d.picture_description
+            picture_description: d.picture_description,
+            vote : d.vote
           })
           }
         });
-        console.log("following:");
+        //console.log("following:");
         //console.log(data);
         res.json(data);
       });  
-    
     // res.json({id:"01"});
 })
 
@@ -162,8 +166,8 @@ app.post('/up', function(req, res) {
     return;
     //return res.status(400).send('No file is uploaded.');
   }
-  console.log(req.files.photo.size);
-  if(req.files.photo.size > 1000000) //more than 1MB
+  console.log("file size: ", req.files.photo.size);
+  if(req.files.photo.size > 10000000) //restrict not more than 10MB
   {
     return res.status(400).send('File is to large, back to last page to try again!');
   }
@@ -175,7 +179,78 @@ app.post('/up', function(req, res) {
   sampleFile.mv(__dirname +'/public/upload_images/'+req.files.photo.name, function(err) {
     if (err)
       return res.status(500).send(err);
-    res.redirect('/Client-home');
+    res.redirect('/Vote');
   });
 });
+
+app.post('/vote_result',function(req,res){
+    console.log("i got a request from vote result!");
+    //console.log(req.body);
+    //console.log(Object.keys(req.body.resultid).length);
+
+    for(step = 0; step <Object.keys(req.body.resultid).length;step++ )
+    {
+      if(req.body.resultid[step]=="Y")//vote!
+      {
+        console.log("someone vote id:", step);
+        database.find({pic_id:step},function(err,docs){
+          console.log("current id:",docs[0].pic_id,", votes:",docs[0].vote);
+          database.update({pic_id:docs[0].pic_id},{$set: {vote:docs[0].vote+1}},{},function(){
+            //console.log("changing....");
+          });
+          database.persistence.compactDatafile();//this will compact rows(same id) into one row(usally, last rows)
+          database.find({pic_id:docs[0].pic_id}, function (err, docs) {
+            // If no document is found, docs is equal to []
+            //console.log(" db at the end: ",docs);
+          });
+        });
+        
+      }
+      
+    }
+    
+    //update the vote with specialize id
+
+    // // 2  steps: update, compact
+    // database.find({ file_name:'nyancat.gif'}, function (err, docs) {
+    //   // If no document is found, docs is equal to []
+    //   console.log(docs[0].vote);
+    //   database.update({file_name:'nyancat.gif'},{$set: { vote:docs[0].vote+1}}, {},function(){
+      
+    //     console.log("changing...");
+        
+    //   });
+
+    //   database.persistence.compactDatafile();//this will compact rows(same id) into one row(usally, last rows)
+
+    //   database.find({ file_name:'nyancat.gif'}, function (err, docs) {
+    //     // If no document is found, docs is equal to []
+    //     console.log(" db at the end");
+    //     console.log(docs);
+    //   });
+    // });
+
+    
+    
+
+});
+
+app.get('/get_result', function(req,res){
+  var data = [];
+  database.find({}).sort({vote:-1}).limit(5).exec(function(err,docs){
+    console.log(docs);
+
+    docs.forEach(function(d) {
+      if(d.file_name != undefined){
+      console.log('Found file:', d.file_name);
+      data.push({
+        file_name:d.file_name,
+        picture_name: d.picture_name,
+        vote : d.vote
+      })
+      }
+    });
+    res.json(data);
+  });
+})
 

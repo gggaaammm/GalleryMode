@@ -164,7 +164,7 @@
         font-weight: bold;
         margin: 5px; }
   .main.grid .tips {
-    font-size: 1.2rem; }
+    font-size: 1.5rem; }
 
 * {
   outline: none; }
@@ -172,9 +172,18 @@
 body {
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
   background-color: #222;
-  color: #fff; }
+  color: rgb(255, 255, 255); }
 
 .main {
   height: 100vh;
   width: 100vw;
   overflow: hidden; }
+
+#btnhome {  
+  margin-left: 10px;
+  margin-top: 0px;
+  width: 84px;
+  height: 45px;
+  font-size:14px;
+  font-weight:700;
+}

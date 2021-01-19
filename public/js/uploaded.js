@@ -14,10 +14,90 @@ $(function(){
 
 $("form").submit(function(event){
     //alert("uploading!");
+    document.getElementById("submit").disabled = true;
 })
 
 
+function checkFileDetails() {
+    
+    var fi = document.getElementById('upload_file');
+    if (fi.files.length > 0) {      // FIRST CHECK IF ANY FILE IS SELECTED.
+       
+        for (var i = 0; i <= fi.files.length - 1; i++) {
+            var fileName, fileExtension, fileSize, fileType, dateModified;
 
+            // FILE NAME AND EXTENSION.
+            fileName = fi.files.item(i).name;
+            fileExtension = fileName.replace(/^.*\./, '');
+
+            // CHECK IF ITS AN IMAGE FILE.
+            // TO GET THE IMAGE WIDTH AND HEIGHT, WE'LL USE fileReader().
+            if (fileExtension == 'png' || fileExtension == 'jpg' || fileExtension == 'jpeg' ||fileExtension =='bmp'||fileExtension=='gif') {
+               readImageFile(fi.files.item(i));             // GET IMAGE INFO USING fileReader().
+            }
+            else {
+                // IF THE FILE IS NOT AN IMAGE.
+                    
+                fileSize = fi.files.item(i).size;  // FILE SIZE.
+                fileType = fi.files.item(i).type;  // FILE TYPE.
+                dateModified = fi.files.item(i).lastModifiedDate;  // FILE LAST MODIFIED.
+
+                document.getElementById('fileInfo').innerHTML =
+                    document.getElementById('fileInfo').innerHTML + '<br /> ' +
+                        'Name: <b>' + fileName + '</b> <br />' +
+                        'File Extension: <b>' + fileExtension + '</b> <br />' +
+                        'Size: <b>' + Math.round((fileSize / 1024)) + '</b> KB <br />' +
+                        'Type: <b>' + fileType + '</b> <br />' +
+                        'Last Modified: <b>' + dateModified + '</b> <br />';
+            }
+        }
+
+        // GET THE IMAGE WIDTH AND HEIGHT USING fileReader() API.
+        function readImageFile(file) {
+            var reader = new FileReader(); // CREATE AN NEW INSTANCE.
+
+            reader.onload = function (e) {
+                var img = new Image();      
+                img.src = e.target.result;
+                var img_preview = new Image();      
+                img_preview.src = e.target.result;
+                 
+
+                img.onload = function () {
+                    var w = this.width;
+                    var h = this.height;
+
+                    document.getElementById('fileInfo').innerHTML =
+                            'Name: <b>' + file.name + '</b> <br />' +
+                            'File Extension: <b>' + fileExtension + '</b> <br />' +
+                            'Size: <b>' + Math.round((file.size / 1024)) + '</b> KB <br />' +
+                            'Resolution: <b>' + w + 'x' + h + ' pixels </b> <br />'
+                            /*'Width: <b>' + w + '</b> <br />' +
+                            'Height: <b>' + h + '</b> <br />' +
+                            'Type: <b>' + file.type + '</b> <br />' +
+                            'Last Modified: <b>' + file.lastModifiedDate + '</b> <br />';*/
+
+                    if(w>800 && h>600){
+                        document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
+                        'Permission: <span style="color: green;font-size:24px"><b> Permitted</b></span>';
+                        document.getElementById("submit").disabled = false;
+                    }
+                    else{
+                        document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
+                        'Permission:<span style="color: red;font-size:24px"><b> Denied</b></span><br/> ' +
+                        '<span style="font-size:20px"><b>  請選擇解析度大於 800x600 之作品 </b></span>'
+                        document.getElementById("submit").disabled = true;
+                    }
+                }
+                img_preview.setAttribute('style','width:200px');
+                $('#img').empty();
+                $('#img').append(img_preview);
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    }
+}
 
 
 async function uplaod_demo_handler(event){
@@ -78,7 +158,7 @@ async function uplaod_demo_handler(event){
         'Content-Type':'application/json'
         },
     body : JSON.stringify(data1)
-    };
+    };   
                 
     //send
     const response1 = fetch('/upload_photos', options1);

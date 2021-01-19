@@ -9,41 +9,47 @@
 <body>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h2 id="title" class="center">上傳檔案</h2>
+            <h2 id="title" class="center">上傳檔案 Upload Files</h2>
             <br>
             <form id="upload-photos" class="row" action='/up' 
             method='post' 
             encType="multipart/form-data" >
                 <div class="col-md-8 offset-md-2">
                     <div class="form-group ">
-                        <h3 class="required">圖片名稱</h3>
+                        <h3 class="required">圖片標題 Title</h3>
                         <input type="text" id="name" name = "name_i" class="form-control" placeholder="ex:" required>
                     </div>
                     <div class="form-group ">
-                        <h3>描述</h3>
-                        <textarea class="form-control" id="description" name = "description_i" rows="2" placeholder="ex: " required></textarea>
+                        <h3 class="required">描述 Description</h3>
+                        <textarea class="form-control" id="description" name = "description_i" rows="3" placeholder="字數以八十字為限" required></textarea>
                     </div>
                     
                     <div class="form-group">
-                        <h3 class="required">上傳圖片</h3>
+                        <h3 >上傳圖檔 Upload Image</h3>
+                        <h6> 解析度要求：至少800x600像素
+                            <br>
+                             Resolution required: 800x600 pixels at least
+                        </h6>
                         <!--p class="help-block">拉動圖片來排序(由左至右，由上至下)</p-->
                     </div>
                     <div class="form-group row">
                         <div class="col-md-9">
-                            <input id="upload_file" name="photo" type="file" accept=".png,.jpg,.jpeg, .bmp, .gif"/>
+                            <input id="upload_file" name="photo" type="file" accept=".png,.jpg,.jpeg, .bmp, .gif " onchange="checkFileDetails()"/>
                         </div>
                         <div class="col-md-3 center">
-                            <input class="btn btn-warning" type="submit" value="上傳"/>
+                            <input id="submit" class="btn btn-warning" type="submit" value="上傳 Upload"/>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 offset-md-2">
                     <div id="pic_row" >
                         <div class="row" id="movable_pic_row"></div>
+                        <p id="img"></p>
+                        <p id="fileInfo"></p>
                     </div>
                 </div>
+                
             </form>
-            
         </div>
     </div>
 </body>
