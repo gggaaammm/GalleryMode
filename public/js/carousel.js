@@ -46,7 +46,7 @@ function create_new_slides(data) //a loop: to create slides from database
         newimg.classList.add("img");
         newQR.classList.add("qrcode");
 
-        newQR.appendChild(newQRimg);//smallest div    
+        //newQR.appendChild(newQRimg);//smallest div    
         newintro.appendChild(newtitle);
         newintro.appendChild(linebreak);
         newintro.appendChild(newdetail);
