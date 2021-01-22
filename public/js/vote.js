@@ -1,9 +1,31 @@
 $(function(){
 	console.log("voting!");
 	
+
+	
+	var navigator_info = window.navigator;
+	var screen_info = window.screen;
+	var uid = navigator_info.mimeTypes.length;
+	uid += navigator_info.userAgent.replace(/\D+/g, '');
+	uid += navigator_info.plugins.length;
+	uid += screen_info.height || '';
+	uid += screen_info.width || '';
+	uid += screen_info.pixelDepth || '';
+	console.log(uid);
+
+
+	$("#T1").hide();
+	$("#T2").hide();
+	$("#T3").hide();
+	$("#T4").hide();
+	$("#T5").hide();
+	$("#image_location").hide();
 	getData();
+	
 });
 var selected = Array(20); //need modified;
+
+
 
 function create_new_votes(data){
 	// document.getElementById('0').style.display= "none";
@@ -15,11 +37,13 @@ function create_new_votes(data){
 	console.log(data.length);
 	var limit = Math.floor(data.length*0.3);
 	var current_votes=0;
-	console.log(limit);
+	if(data.length>30) limit = 10; //if more than 30 pics, give 10 votes
 	document.getElementById('limit').innerHTML = limit+" votes at most";
+	console.log($(document).width());
 	for(step = 0; step < data.length; step++)
 	{
 		var newimg = document.createElement('div');
+		
 		newimg.setAttribute("class","img");
 		newimg.setAttribute("id", step+1); //need modified
 		var newcircle = document.createElement('div');
@@ -27,7 +51,8 @@ function create_new_votes(data){
 		newcircle.textContent = step+1; //need modified
 		var url = "url('/upload_images/"+data[step].file_name+"')";
 		var newpath ="background-image: "+url;
-		newimg.setAttribute("style", newpath);
+		var resolution = ";width:"+($(document).width()/3)+"px;height:"+($(document).width()/3)+"px";
+		newimg.setAttribute("style", newpath+resolution);
 		newimg.appendChild(newcircle);
 		$('.clearfix').append(newimg);
 		selected[step+1] = "N"; //need modified
@@ -98,7 +123,40 @@ async function getData(){
 	const response = await fetch('/carousel');
 	const data = await response.json();
 	create_new_votes(data);
+	
 }
+
+async function getResult(){
+	console.log("get Result here");
+	const response = await fetch('/get_result');
+	const data = await response.json();
+	console.log("new");
+	console.log(data);
+	// create 5 buttons as well as images(will be hided)
+	
+	
+	$("#T1").html(data[0].picture_name);
+	var Did=0;
+	for(Did=1; Did<data.length+1; Did++)
+	{
+		$("#T"+Did).show();
+		$("#T"+Did).html(data[Did-1].picture_name);
+	}
+
+
+	$(".btn.btn-warning.btn-lg.btn-block").click(function(){
+		console.log(this.id);
+		var n = this.id.indexOf("T");
+		
+		$("#image_location").attr("width","100");
+		$("#image_location").attr("height","100");
+		$("#image_location").attr("src","/upload_images/"+data[1].file_name);
+		$("#image_location").fadeIn('slow');
+		//when button is clicked, show image
+	})
+	
+}
+
 
 
 $("#submitvote").click(function(){
@@ -118,8 +176,14 @@ $("#submitvote").click(function(){
 	};
 	
 	const response = fetch('/vote_result', options);
-	document.getElementById('sum').innerHTML = "Voting completed";
+	document.getElementById('title').setAttribute('style', 'font-size:40px');
+	document.getElementById('title').innerHTML = "Voting completed";
 	document.getElementById('submitvote').style.display= "none";
+	document.getElementById('pics').style.display = "none";
+	document.getElementById('limit').style.display = "none";
+	document.getElementById('sum').innerHTML = "Voting Result";
+	getResult();
+	
 
 });
 
