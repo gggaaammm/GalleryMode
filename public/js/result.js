@@ -13,7 +13,7 @@ async function getResultData(){
     var picsrc = document.getElementsByClassName("img"); //0~4
     var pictitle = document.getElementsByClassName("title");
     var picvote = document.getElementsByClassName("vote");
-    console.log(picsrc);
+    console.log(picsrc); 
     //use a for loop to finish the task
     for(rk=0 ; rk<Object.keys(data).length; rk++)
     {
