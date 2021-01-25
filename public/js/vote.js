@@ -140,7 +140,9 @@ async function getResult(){
 	for(Did=1; Did<data.length+1; Did++)
 	{
 		$("#T"+Did).show();
-		$("#T"+Did).html(data[Did-1].picture_name);
+		$("#T"+Did).html(Did+". "+data[Did-1].picture_name + ": "+ data[Did-1].vote+"票");
+
+		
 		//the picture name will show at html
 
 	}
@@ -186,7 +188,7 @@ $("#submitvote").click(function(){
 	document.getElementById('submitvote').style.display= "none";
 	document.getElementById('pics').style.display = "none";
 	document.getElementById('limit').style.display = "none";
-	document.getElementById('sum').innerHTML = "Voting Result";
+	document.getElementById('sum').innerHTML = "Voting Rank";
 	getResult();
 	
 

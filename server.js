@@ -137,7 +137,7 @@ app.use(fileupload());
 
 app.get('/carousel', (req,res)=>{
     var data = [];
-    database.find({}, function(err,docs){
+    database.find({}).sort({pic_id:1}).exec(function(err,docs){
       docs.forEach(function(d) {
           if(d.file_name != undefined){
           console.log('Found file:', d.file_name);
