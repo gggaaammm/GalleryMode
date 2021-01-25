@@ -22,12 +22,7 @@ async function getData(){
         
         picsrc[rk].style.backgroundImage = filepath;
         pictitle[rk].innerHTML = picture;
-        picvote[rk].innerHTML = result;
-
-        
+        picvote[rk].innerHTML = result;   
     }
-    
-
-    
 
 }
