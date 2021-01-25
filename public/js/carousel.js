@@ -1,8 +1,10 @@
 
 $(function(){
+    $('.clearfix').hide();
     console.log("carousel");
     $(document).on("submit", "#upload-photos", function(event){ uplaod_demo_handler(event); });
     
+    getResultData();
     
     //$(document).on("submit", "#upload-photos", function(event){ uplaod_btn_handler(event); });
     $('.carousel-wrapper').slick({
@@ -19,7 +21,29 @@ $(function(){
 });
 
 
+async function getResultData(){
+	console.log("get data here");
+	const response = await fetch('/get_result');
+    const data = await response.json();
+    console.log("data at backend", data);
 
+
+    var picsrc = document.getElementsByClassName("img"); //0~4
+    var pictitle = document.getElementsByClassName("title");
+    var picvote = document.getElementsByClassName("vote");
+    
+    //use a for loop to finish the task
+    for(rk=0 ; rk<Object.keys(data).length; rk++)
+    {
+        var filepath = "url('/upload_images/"+data[rk].file_name+"')";
+        var picture = data[rk].picture_name;
+        var result = data[rk].vote + " votes";
+        picsrc[rk].style.backgroundImage = filepath;
+        pictitle[rk].innerHTML = picture;
+        picvote[rk].innerHTML = result;   
+    }
+
+}
 
 function create_new_slides(data) //a loop: to create slides from database
 {
@@ -68,6 +92,35 @@ function create_new_slides(data) //a loop: to create slides from database
 
 }
 
+$(this).on('afterChange', function(event, slick, currentSlide) {
+    //console.log(slick, currentSlide); //length = slick.$slides.length-1
+    if (Math.round(currentSlide%5)==0 && currentSlide!=0) {
+      console.log("change to result");
+      $('.clearfix').show();
+      $('.carousel-wrapper').slick('slickPause');
+      var timeoutID = window.setTimeout(( () => {
+          console.log("Hello!");
+          $('.carousel').hide();
+          $('.carousel-wrapper').slick('slickPlay');
+
+        } ), 2000);
+    //$('.carousel-wrapper').show();
+      //this will pause current gallery
+      
+    }
+    else{
+        $('.clearfix').hide();
+        //this does not show up D:
+        $('.carousel').show();
+        document.getElementById("wrapper").style.display = "block";
+    }
+
+    if(slick.$slides.length-1 == currentSlide)
+    {
+        document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", "2; url=http://0.0.0.0:8051/Gallery")
+    }
+  })
+
 //get the db's image path dynamically
 getData();
     async function getData(){
@@ -82,6 +135,7 @@ getData();
         }
 
         create_new_slides(data);
+
         //$('.carousel-wrapper').slick('unslick');
         //$('.carousel-wrapper').slick('reinit');    
         // var t4 = document.querySelector(".carousel-wrapper");
@@ -101,9 +155,9 @@ getData();
           });
 
         console.log(data.length);
-        var time = data.length*2+2;
+        var time = data.length*2+92;
         
-        document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", time+"; url=http://0.0.0.0:8051/Result")
+        //document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", time+"; url=http://0.0.0.0:8051/Result")
     }
 
 

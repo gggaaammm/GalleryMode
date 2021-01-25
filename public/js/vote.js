@@ -3,15 +3,7 @@ $(function(){
 	
 
 	
-	var navigator_info = window.navigator;
-	var screen_info = window.screen;
-	var uid = navigator_info.mimeTypes.length;
-	uid += navigator_info.userAgent.replace(/\D+/g, '');
-	uid += navigator_info.plugins.length;
-	uid += screen_info.height || '';
-	uid += screen_info.width || '';
-	uid += screen_info.pixelDepth || '';
-	console.log(uid);
+	
 
 
 	$("#T1").hide();
@@ -25,6 +17,19 @@ $(function(){
 });
 var selected = Array(20); //need modified;
 
+function get_uid()
+{
+	var navigator_info = window.navigator;
+	var screen_info = window.screen;
+	var uid = navigator_info.mimeTypes.length;
+	uid += navigator_info.userAgent.replace(/\D+/g, '');
+	uid += navigator_info.plugins.length;
+	uid += screen_info.height || '';
+	uid += screen_info.width || '';
+	uid += screen_info.pixelDepth || '';
+	//console.log(uid);
+	return uid;
+}
 
 
 function create_new_votes(data){
@@ -172,8 +177,10 @@ $("#submitvote").click(function(){
 	alert("submit completed");
 	//send voting result to backend
 	
+	const userid = get_uid();
+	console.log("user: "+ userid);
 	const resultid = selected;
- 	const data = {resultid};
+ 	const data = {resultid,userid};
     const options = {
     method:'POST',
     headers:{

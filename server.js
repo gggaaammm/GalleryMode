@@ -47,6 +47,9 @@ app.get('/tt', function(req,res){
 // load(or create) Database file
 const database = new Datastore('GalleryDB.db');
 database.loadDatabase();
+
+const idbase = new Datastore('Sessionid.db');
+idbase.loadDatabase();
 //database.insert({name: 'Steven', pic:'jpg'});
 //database.insert({name: 'Roger', pic:'png'});
 
@@ -185,7 +188,7 @@ app.post('/up', function(req, res) {
 
 app.post('/vote_result',function(req,res){
     console.log("i got a request from vote result!");
-    //console.log(req.body);
+    console.log(req.body.userid);
     //console.log(Object.keys(req.body.resultid).length);
 
     for(step = 0; step <Object.keys(req.body.resultid).length;step++ )
@@ -230,7 +233,6 @@ app.post('/vote_result',function(req,res){
     //   });
     // });
 
-    
     
 
 });
