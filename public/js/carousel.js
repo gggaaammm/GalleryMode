@@ -94,12 +94,13 @@ function create_new_slides(data) //a loop: to create slides from database
 
 $(this).on('afterChange', function(event, slick, currentSlide) {
     //console.log(slick, currentSlide); //length = slick.$slides.length-1
-    if (Math.round(currentSlide%5)==0 && currentSlide!=0) {
+    if (Math.round(currentSlide%9)==0 && currentSlide!=0) {
       console.log("change to result");
-      $('.clearfix').show();
+      
       $('.carousel-wrapper').slick('slickPause');
       var timeoutID = window.setTimeout(( () => {
           console.log("Hello!");
+          $('.clearfix').show();
           $('.carousel').hide();
           $('.carousel-wrapper').slick('slickPlay');
 
@@ -117,7 +118,7 @@ $(this).on('afterChange', function(event, slick, currentSlide) {
 
     if(slick.$slides.length-1 == currentSlide)
     {
-        document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", "2; url=http://0.0.0.0:8051/Gallery")
+        document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", "4; url=http://0.0.0.0:8051/Gallery")
     }
   })
 
@@ -154,7 +155,6 @@ getData();
             useCSS: true
           });
 
-        console.log(data.length);
         var time = data.length*2+92;
         
         //document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", time+"; url=http://0.0.0.0:8051/Result")

@@ -240,11 +240,11 @@ app.post('/vote_result',function(req,res){
 app.get('/get_result', function(req,res){
   var data = [];
   database.find({}).sort({vote:-1}).limit(5).exec(function(err,docs){
-    console.log(docs);
+    //console.log(docs);
 
     docs.forEach(function(d) {
       if(d.file_name != undefined){
-      console.log('Found file:', d.file_name);
+      console.log('Top 5:', d.file_name);
       data.push({
         file_name:d.file_name,
         picture_name: d.picture_name,
