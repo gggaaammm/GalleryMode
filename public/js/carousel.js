@@ -56,7 +56,7 @@ function create_new_slides(data) //a loop: to create slides from database
         var newintro = document.createElement('div');
         var newQR = document.createElement('div');
         var newQRimg = document.createElement('img');
-        var newtitle = document.createElement('h4');
+        var newtitle = document.createElement('h1');
         var newdetail = document.createElement('div');
         var linebreak = document.createElement('br');
         newQRimg.src = "images/qrcode-sample.png";
@@ -64,11 +64,12 @@ function create_new_slides(data) //a loop: to create slides from database
         newtitle.setAttribute("class", "title");
         newintro.setAttribute("class", "intro");
         newdetail.setAttribute("class", "tip");
-
+        newdetail.setAttribute("style", "font-size:26px;");
         //style  rendering
         newintro.classList.add("intro");
         newimg.classList.add("img");
         newQR.classList.add("qrcode");
+        newdetail.classList.add("tip");
 
         //newQR.appendChild(newQRimg);//smallest div    
         newintro.appendChild(newtitle);

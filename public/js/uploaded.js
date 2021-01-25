@@ -28,6 +28,7 @@ textarea.addEventListener("input", function(){
     }else{
         console.log(maxlength - currentLength + " chars left");
     }
+    
 });
 
 
