@@ -119,7 +119,7 @@ $(this).on('afterChange', function(event, slick, currentSlide) {
 
     if(slick.$slides.length-1 == currentSlide)
     {
-        document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", "4; url=http://0.0.0.0:8051/Gallery")
+        document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", "4; url=/Gallery")
     }
   })
 
