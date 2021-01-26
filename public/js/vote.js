@@ -43,7 +43,7 @@ function create_new_votes(data){
 	var limit = Math.floor(data.length*0.3);
 	var current_votes=0;
 	if(data.length>30) limit = 10; //if more than 30 pics, give 10 votes
-	document.getElementById('limit').innerHTML = limit+" votes at most";
+	document.getElementById('limit').innerHTML = "最多能投"+limit+"票 / "+limit+" votes at most";
 	console.log($(document).width());
 	for(step = 0; step < data.length; step++)
 	{
