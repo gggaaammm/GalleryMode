@@ -17,7 +17,6 @@ $(function(){
         arrows: false
       });
       
-    
 });
 
 
@@ -95,25 +94,34 @@ function create_new_slides(data) //a loop: to create slides from database
 
 $(this).on('afterChange', function(event, slick, currentSlide) {
     //console.log(slick, currentSlide); //length = slick.$slides.length-1
-    if (Math.round(currentSlide%9)==0 && currentSlide!=0) {
+    if (Math.round(currentSlide%7)==0 && currentSlide!=0) {
       console.log("change to result");
       
       $('.carousel-wrapper').slick('slickPause');
-      var timeoutID = window.setTimeout(( () => {
-          console.log("Hello!");
-          $('.clearfix').show();
-          $('.carousel').hide();
-          $('.carousel-wrapper').slick('slickPlay');
+    var timeout1 = window.setTimeout(( () => {
+        console.log("start!");
+        $('.clearfix').show();
+        $('.carousel').hide();
 
-        } ), 2000);
-    //$('.carousel-wrapper').show();
+    } ), 2000);
+    // the time from new pictures to result show
+
+    var timeout2 = window.setTimeout(( () => {
+        console.log("end");
+        $('.carousel-wrapper').slick('slickPlay');
+
+    } ), 6000);
+    // the time to playing the result
+    
+        /// to 5 seconds
+      //$('.carousel-wrapper').show();
       //this will pause current gallery
       
     }
     else{
-        $('.clearfix').hide();
+        $('.clearfix').hide(); //hide the result
         //this does not show up D:
-        $('.carousel').show();
+        $('.carousel').show(); //show the gallery
         document.getElementById("wrapper").style.display = "block";
     }
 

@@ -20,6 +20,8 @@ $("form").submit(function(event){
 var textarea = document.querySelector("textarea");
 
 textarea.addEventListener("input", function(){
+
+    //todo: english words counter
     var maxlength = this.getAttribute("maxlength");
     var currentLength = this.value.length;
 
@@ -28,7 +30,7 @@ textarea.addEventListener("input", function(){
     }else{
         console.log(maxlength - currentLength + " chars left");
     }
-    document.getElementById('limit').innerHTML = currentLength + "/50 words";
+    document.getElementById('limit').innerHTML = currentLength + "/300 letters";
     
 });
 

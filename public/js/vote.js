@@ -154,16 +154,19 @@ async function getResult(){
 
 
 	$(".btn.btn-warning.btn-lg.btn-block").click(function(){
+		
 		console.log(this.id);
 		var n = this.id.indexOf("T");
 		var rk = parseInt( this.id.substring(1,2));
 		console.log(rk);
 
 		
+		$("#image_location").fadeIn('slow');
 		$("#image_location").attr("width","100");
 		$("#image_location").attr("height","100");
 		$("#image_location").attr("src","/upload_images/"+data[rk-1].file_name);
-		$("#image_location").fadeIn('slow');
+		
+		
 		//when button is clicked, show image
 	})
 	
