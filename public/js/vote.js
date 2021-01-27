@@ -77,6 +77,8 @@ function create_new_votes(data){
 	//we need to count how many votes
 	//after create new vote, we can start counting votes
 	$(".main.grid .pics > .img").on('click', function(event){
+		//todo
+
 		var id = this.id;
 		
 		console.log("a user click");
@@ -146,8 +148,6 @@ async function getResult(){
 	{
 		$("#T"+Did).show();
 		$("#T"+Did).html(Did+". "+data[Did-1].picture_name + ": "+ data[Did-1].vote+"票");
-
-		
 		//the picture name will show at html
 
 	}

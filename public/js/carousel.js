@@ -63,7 +63,7 @@ function create_new_slides(data) //a loop: to create slides from database
         newtitle.setAttribute("class", "title");
         newintro.setAttribute("class", "intro");
         newdetail.setAttribute("class", "tip");
-        newdetail.setAttribute("style", "font-size:26px;");
+        newdetail.setAttribute("style", "font-size:26px;text-align:justify;word-break:normal");
         //style  rendering
         newintro.classList.add("intro");
         newimg.classList.add("img");

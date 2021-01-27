@@ -190,7 +190,7 @@ body {
 
 #qr{
    position: fixed;
-   bottom: 50px;
+   bottom: 20px;
    right: 20px;
    z-index: 1;
    padding: 0px;
@@ -199,8 +199,8 @@ body {
 
 #qrnotify{
   position: fixed;
-   bottom: 170px;
-   right: 60px;
+   bottom: 140px;
+   right: 25px;
    z-index: 1;
    padding: 0px;
    margin: 0px;

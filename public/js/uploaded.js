@@ -24,13 +24,14 @@ textarea.addEventListener("input", function(){
     //todo: english words counter
     var maxlength = this.getAttribute("maxlength");
     var currentLength = this.value.length;
+    // console.log(this.value.trim().split(/\s+/).length);
 
     if( currentLength >= maxlength ){
         console.log("You have reached the maximum number of characters.");
     }else{
-        console.log(maxlength - currentLength + " chars left");
+        //console.log(maxlength - currentLength + " chars left");
     }
-    document.getElementById('limit').innerHTML = currentLength + "/300 letters";
+    document.getElementById('limit').innerHTML = currentLength + "/150 letters " + this.value.trim().split(/\s+/).length + "/50 words";
     
 });
 
@@ -156,8 +157,7 @@ async function uplaod_demo_handler(event){
         return false;
     }
     if(picture_description == ''){
-        alert("系統訊息:請簡述這張圖片");
-        return false;
+        picture_description = '';
         
     }
     if(files.length < 1){ //check file input
