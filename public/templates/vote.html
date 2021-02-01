@@ -8,15 +8,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <!--script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    
+
+    
     
   </head>
   <body>
     <div class="main grid">
       <div id="title" class="title">最佳圖片票選 / Voting</div>
       <div id="limit" class="tips">limit: </div>
+      
+      <label class="switch">
+        <input type="checkbox" id="togBtn">
+        <div class="slider round"></div>
+        </label>
+      
       <div id="pics" class="pics clearfix">
-        <!--div id="0" class="background">
-          <div id ="-1" class="img" style="background-image: url('/images/photo_4.jpeg') ">
+      
+      <a id="f1" class="preview" data-fancybox="gallery1" href="images/photo_4.jpeg" data-caption="This image has a simple caption">
+        <div id ="q" class="img" style="background-image: url('/images/photo_4.jpeg'); ">
+            <div class="circle">0</div>
+        </div>
+      </a>
+
+      <a id="f2" class="preview" data-fancybox="gallery1" href="images/photo_5.jpeg" data-caption="This image has a simple caption">
+        <div id ="w" class="img" style="background-image: url('/images/photo_5.jpeg'); ">
+            <div class="circle">0</div>
+        </div>
+      </a>
+
+
+
+      
+        <!--a id="f1" class="fancybox" data-fancybox="gallery1" href="http://farm2.staticflickr.com/1459/23610702803_83655c7c56_b.jpg" title="Electrical Power Lines and Pylons disappear over t.. (pautliubomir)"> 
+          <img src="http://farm2.staticflickr.com/1459/23610702803_83655c7c56_m.jpg" alt="" />
+        </a>
+        <a id="f2" class="fancybox" data-fancybox="gallery1" href="http://farm2.staticflickr.com/1617/24108587812_6c9825d0da_b.jpg" title="Morning Godafoss (Brads5)">
+          <img src="http://farm2.staticflickr.com/1617/24108587812_6c9825d0da_m.jpg" alt="" />
+        </a>
+        <a id="f3" class="fancybox" data-fancybox="gallery1" href="http://farm4.staticflickr.com/3691/10185053775_701272da37_b.jpg" title="Vertical - Special Edition! (cedarsphoto)">
+          <img src="http://farm4.staticflickr.com/3691/10185053775_701272da37_m.jpg" alt="" />
+        </a-->  
+
+
+        <!--div id ="0" class="img" style="background-image: url('/images/photo_4.jpeg') ">
             <div class="circle">-1</div></div>
         </div-->
         <!--div id="2" class="img" style="background-image: url('/images/photo_5.jpeg')">
@@ -62,9 +100,13 @@
         
 
     </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+   
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
     <script src="js/vote.js"></script>
   </body>
 </html>

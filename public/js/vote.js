@@ -1,10 +1,5 @@
 $(function(){
 	console.log("voting!");
-	
-
-	
-	
-
 
 	$("#T1").hide();
 	$("#T2").hide();
@@ -12,10 +7,13 @@ $(function(){
 	$("#T4").hide();
 	$("#T5").hide();
 	$("#image_location").hide();
+
+
 	getData();
 	
 });
 var selected = Array(20); //need modified;
+
 
 function get_uid()
 {
@@ -31,6 +29,12 @@ function get_uid()
 	return uid;
 }
 
+$(document).ready(function() {
+	$(".fancybox").fancybox({
+		openEffect	: 'none',
+		closeEffect	: 'none'
+	});
+});
 
 function create_new_votes(data){
 	// document.getElementById('0').style.display= "none";
@@ -44,6 +48,7 @@ function create_new_votes(data){
 	var current_votes=0;
 	if(data.length>30) limit = 10; //if more than 30 pics, give 10 votes
 	document.getElementById('limit').innerHTML = "最多能投"+limit+"票 / "+limit+" votes at most";
+
 	console.log($(document).width());
 	for(step = 0; step < data.length; step++)
 	{
@@ -65,25 +70,67 @@ function create_new_votes(data){
 	for(i=0;i<data.length+1;i++)//need modified
 	{	selected[i] = "N";}
 
-	// $(".main.grid .pics > .background .img").on('click', function(event){
-	// 	var id = this.id;
-	// 	var parent = document.getElementById(id);
-	// 	var child = parent.children[0];
-	// 	parent.style.backgroundColor = "rgba(255, 0, 0, 0.6)";
-	// 	//child.style.opcaity =0.2;
-		
-	// });
+	var isselect = false;
+	$('input:checkbox').change(
+		function(){
+			if ($(this).is(':checked')) {
+				isselect = true;
+			}
+			else {
+				isselect = false;
+			}
+
+
+
+			if(isselect == true){
+				console.log("show big image");
+
+				for(s=0; s<2/*data.length */;s++)
+				{
+					document.getElementsByClassName('preview')[s].removeAttribute('data-fancybox');
+					document.getElementsByClassName('preview')[s].removeAttribute('href');
+					document.getElementsByClassName('preview')[s].removeAttribute('data-caption');
+				}
+				
+				
+
+				//document.getElementById('f1').remove();
+			}
+			else
+			{
+				console.log("select");
+
+				for(s=0; s<2/*data.length */;s++)
+				{
+					document.getElementsByClassName('preview')[s].setAttribute('data-fancybox','gallery1');
+					document.getElementsByClassName('preview')[s].setAttribute('data-caption','WTF');
+					
+				}
+				document.getElementsByClassName('preview')[0].setAttribute('href', '/images/photo_4.jpeg');
+				document.getElementsByClassName('preview')[1].setAttribute('href', '/images/photo_5.jpeg');
+				
+			}
+		});
+	
+	
+	
+
 
 	//we need to count how many votes
 	//after create new vote, we can start counting votes
 	$(".main.grid .pics > .img").on('click', function(event){
-		//todo
+		
+		
+		//todo check if toggle is select or preview
 
 		var id = this.id;
 		
 		console.log("a user click");
 		var parent = document.getElementById(id);
 		var child = parent.children[0];
+
+		
+
 		
 		//todo, check if this image has already selected;
 		if(selected[id]=="N"){ //not selected
