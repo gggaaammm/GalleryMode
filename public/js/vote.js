@@ -29,12 +29,12 @@ function get_uid()
 	return uid;
 }
 
-$(document).ready(function() {
+/*$(document).ready(function() {
 	$(".fancybox").fancybox({
 		openEffect	: 'none',
 		closeEffect	: 'none'
 	});
-});
+});*/
 
 function create_new_votes(data){
 	// document.getElementById('0').style.display= "none";
@@ -52,6 +52,13 @@ function create_new_votes(data){
 	console.log($(document).width());
 	for(step = 0; step < data.length; step++)
 	{
+		var fileurl = "upload_images/"+data[step].file_name;
+
+		var newvote = document.createElement('a');
+		newvote.setAttribute("class","preview");
+		newvote.setAttribute("data-fancybox", "gallery1");
+		newvote.setAttribute("href", fileurl);
+		newvote.setAttribute('data-caption',data[step].picture_name);
 		var newimg = document.createElement('div');
 		
 		newimg.setAttribute("class","img");
@@ -64,7 +71,8 @@ function create_new_votes(data){
 		var resolution = ";width:"+($(document).width()/3)+"px;height:"+($(document).width()/3)+"px";
 		newimg.setAttribute("style", newpath+resolution);
 		newimg.appendChild(newcircle);
-		$('.clearfix').append(newimg);
+		newvote.appendChild(newimg);
+		$('.clearfix').append(newvote);
 		selected[step+1] = "N"; //need modified
 	}
 	for(i=0;i<data.length+1;i++)//need modified
@@ -79,13 +87,10 @@ function create_new_votes(data){
 			else {
 				isselect = false;
 			}
-
-
-
 			if(isselect == true){
 				console.log("show big image");
 
-				for(s=0; s<2/*data.length */;s++)
+				for(s=0; s<data.length;s++)
 				{
 					document.getElementsByClassName('preview')[s].removeAttribute('data-fancybox');
 					document.getElementsByClassName('preview')[s].removeAttribute('href');
@@ -100,14 +105,13 @@ function create_new_votes(data){
 			{
 				console.log("select");
 
-				for(s=0; s<2/*data.length */;s++)
+				for(s=0; s<data.length;s++)
 				{
 					document.getElementsByClassName('preview')[s].setAttribute('data-fancybox','gallery1');
-					document.getElementsByClassName('preview')[s].setAttribute('data-caption','WTF');
+					document.getElementsByClassName('preview')[s].setAttribute('data-caption',data[s].picture_name);
+					document.getElementsByClassName('preview')[s].setAttribute('href', "upload_images/"+data[s].file_name);
 					
 				}
-				document.getElementsByClassName('preview')[0].setAttribute('href', '/images/photo_4.jpeg');
-				document.getElementsByClassName('preview')[1].setAttribute('href', '/images/photo_5.jpeg');
 				
 			}
 		});
@@ -118,56 +122,72 @@ function create_new_votes(data){
 
 	//we need to count how many votes
 	//after create new vote, we can start counting votes
-	$(".main.grid .pics > .img").on('click', function(event){
+	$(".main.grid .pics >.preview .img").on('click', function(event){
 		
 		
 		//todo check if toggle is select or preview
 
-		var id = this.id;
-		
-		console.log("a user click");
-		var parent = document.getElementById(id);
-		var child = parent.children[0];
-
 		
 
+		if(isselect == true){
+			console.log("select image");
+
+			var id = this.id;
 		
-		//todo, check if this image has already selected;
-		if(selected[id]=="N"){ //not selected
-			
-			if(current_votes >= limit) //check if currents votes is greater than limit
-			{
-				alert("you cannot vote greaters than "+limit);
+			console.log("a user click "+id);
+			var parent = document.getElementById(id);
+			var child = parent.children[0];
+
+			//todo, check if this image has already selected;
+			if(selected[id]=="N"){ //not selected
+				
+				if(current_votes >= limit) //check if currents votes is greater than limit
+				{
+					alert("you cannot vote greaters than "+limit);
+				}
+				else
+				{
+					current_votes++;
+					parent.style.opacity = 0.3;
+					child.style.backgroundColor = "black";
+					child.style.color = "white"
+					child.innerHTML = "V";
+					selected[id]="Y";
+				}
+				console.log("i now voted "+current_votes);
 			}
-			else
-			{
-				current_votes++;
-				parent.style.opacity = 0.3;
-				child.style.backgroundColor = "black";
-				child.style.color = "white"
-				child.innerHTML = "V";
-				selected[id]="Y";
+			else{ //have selected before
+				current_votes--;
+				document.getElementById(id).style.opacity = 1.0;
+				child.style.backgroundColor = "#ffc107";
+				child.style.color = "black";
+				child.innerHTML = id;
+				selected[id]="N";
 			}
-			console.log("i now voted "+current_votes);
-		}
-		else{ //have selected before
-			current_votes--;
-			document.getElementById(id).style.opacity = 1.0;
-			child.style.backgroundColor = "#ffc107";
-			child.style.color = "black";
-			child.innerHTML = id;
-			selected[id]="N";
-		}
-		var voteid="";
-		for(y=0; y<data.length+1;y++) //need modified
-		{
-			if(selected[y]=="Y")//
+			var voteid="";
+			for(y=0; y<data.length+1;y++) //need modified
 			{
-				console.log(y);
-				voteid = voteid+" "+y;
+				if(selected[y]=="Y")//
+				{
+					console.log(y);
+					voteid = voteid+" "+y;
+				}
 			}
+			document.getElementById('sum').innerHTML = "You vote:"+voteid;
+
+
+
+
+
+
 		}
-		document.getElementById('sum').innerHTML = "You vote:"+voteid;
+		else{
+			console.log("preview image");
+		}
+		
+
+		
+		
 	});
 }
 
