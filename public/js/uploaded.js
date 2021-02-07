@@ -95,7 +95,7 @@ function checkFileDetails() {
                             'Type: <b>' + file.type + '</b> <br />' +
                             'Last Modified: <b>' + file.lastModifiedDate + '</b> <br />';*/
 
-                    if(w>800 && h>600){
+                    if(w>600 && h>600){
                         document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
                         'Permission: <span style="color: green;font-size:24px"><b> Permitted</b></span>';
                         document.getElementById("submit").disabled = false;
@@ -103,7 +103,7 @@ function checkFileDetails() {
                     else{
                         document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
                         'Permission:<span style="color: red;font-size:24px"><b> Denied</b></span><br/> ' +
-                        '<span style="font-size:20px"><b>  請選擇解析度大於 800x600 之作品 </b></span>'
+                        '<span style="font-size:20px"><b>  請選擇解析度大於 600x600 之作品 </b></span>'
                         document.getElementById("submit").disabled = true;
                     }
                 }
