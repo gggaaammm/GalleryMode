@@ -19,6 +19,30 @@ $(function(){
       
 });
 
+//todo: create progress bar
+function createProgressbar(id, duration, callback) {
+    // We select the div that we want to turn into a progressbar
+    var progressbar = document.getElementById(id);
+    progressbar.className = 'progressbar';
+  
+    // We create the div that changes width to show progress
+    var progressbarinner = document.createElement('div');
+    progressbarinner.className = 'inner';
+  
+    // Now we set the animation parameters
+    progressbarinner.style.animationDuration = duration;
+  
+    // Eventually couple a callback
+    if (typeof(callback) === 'function') {
+      progressbarinner.addEventListener('animationend', callback);
+    }
+  
+    // Append the progressbar to the main progressbardiv
+    progressbar.appendChild(progressbarinner);
+  
+    // When everything is set up we start the animation
+    progressbarinner.style.animationPlayState = 'running';
+  }
 
 async function getResultData(){
 	console.log("get data here");
@@ -26,7 +50,7 @@ async function getResultData(){
     const data = await response.json();
     console.log("data at backend", data);
 
-
+    createProgressbar('progressbar1', '7s');
     var picsrc = document.getElementsByClassName("img"); //0~4
     var pictitle = document.getElementsByClassName("title");
     var picvote = document.getElementsByClassName("vote");
@@ -152,6 +176,8 @@ getData();
         // t4.appendChild(newslide);
         //$('.carousel-wrapper').append(newslide);
         
+
+        //todo: speed progress bar 
         $('.carousel-wrapper').slick({
             accessibility : true,
             infinite: true,
@@ -159,12 +185,13 @@ getData();
             fade: true,
             cssEase: 'linear',
             autoplay: true,
-            autoplaySpeed: 2000,
+            autoplaySpeed: 7000,
             arrows: false,
             useCSS: true
           });
 
         var time = data.length*2+92;
+        // 7 seconds
         
         //document.querySelector('meta[http-equiv="refresh"]').setAttribute("content", time+"; url=http://0.0.0.0:8051/Result")
     }

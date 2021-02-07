@@ -118,12 +118,33 @@ function create_new_votes(data){
 	
 	
 	
+	$(".main.grid .pics >.preview .img .circle").on('click', function(event){
+		for(s=0; s<data.length;s++)
+		{
+			document.getElementsByClassName('preview')[s].removeAttribute('data-fancybox');
+			document.getElementsByClassName('preview')[s].removeAttribute('href');
+			document.getElementsByClassName('preview')[s].removeAttribute('data-caption');
+		}
+		
+		console.log("click on circle");
+
+		
+	});
 
 
 	//we need to count how many votes
 	//after create new vote, we can start counting votes
 	$(".main.grid .pics >.preview .img").on('click', function(event){
+
+		for(s=0; s<data.length;s++)
+				{
+					document.getElementsByClassName('preview')[s].setAttribute('data-fancybox','gallery1');
+					document.getElementsByClassName('preview')[s].setAttribute('data-caption',data[s].picture_name);
+					document.getElementsByClassName('preview')[s].setAttribute('href', "upload_images/"+data[s].file_name);
+					
+				}
 		
+		console.log("click on img");		
 		
 		//todo check if toggle is select or preview
 
@@ -176,16 +197,10 @@ function create_new_votes(data){
 			document.getElementById('sum').innerHTML = "You vote:"+voteid;
 
 
-
-
-
-
 		}
 		else{
 			console.log("preview image");
 		}
-		
-
 		
 		
 	});
@@ -263,6 +278,7 @@ $("#submitvote").click(function(){
 	document.getElementById('title').setAttribute('style', 'font-size:40px');
 	document.getElementById('title').innerHTML = "Voting completed";
 	document.getElementById('submitvote').style.display= "none";
+	document.getElementById('switch').style.display= "none";
 	document.getElementById('pics').style.display = "none";
 	document.getElementById('limit').style.display = "none";
 	document.getElementById('sum').innerHTML = "Voting Rank";
@@ -272,3 +288,5 @@ $("#submitvote").click(function(){
 });
 
 
+//todo preview select : out
+//todo  circle: select img: preview
