@@ -31,7 +31,7 @@ textarea.addEventListener("input", function(){
     }else{
         //console.log(maxlength - currentLength + " chars left");
     }
-    document.getElementById('limit').innerHTML = currentLength + "/150 letters " + this.value.trim().split(/\s+/).length + "/50 words";
+    document.getElementById('limit').innerHTML = currentLength + "/100 字 ";/* + this.value.trim().split(/\s+/).length + "/50 words";*/
     
 });
 

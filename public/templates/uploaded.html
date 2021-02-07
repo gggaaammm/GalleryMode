@@ -9,27 +9,25 @@
 <body>
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h2 id="title" class="center">上傳檔案 Upload Files</h2>
+            <h2 id="title" class="center">上傳檔案</h2>
             <br>
             <form id="upload-photos" class="row" action='/up' 
             method='post' 
             encType="multipart/form-data" >
                 <div class="col-md-8 offset-md-2">
                     <div class="form-group ">
-                        <h3 class="required">圖片標題 Title</h3>
-                        <input type="text" id="name" name = "name_i" class="form-control" placeholder="10字為限 10 letters limit" maxlength = "10" required>
+                        <h3 class="required">圖片標題(必填)</h3>
+                        <input type="text" id="name" name = "name_i" class="form-control" placeholder="10字為限" maxlength = "10" required>
                     </div>
                     <div class="form-group ">
-                        <h3 >描述 Description</h3>
-                        <textarea class="form-control" id="description" name = "description_i" rows="3" placeholder="150字為限 150 letters or 50 words limit" maxlength = "150" ></textarea>
-                        <h6 id="limit"> 0/150 letters 0/50 words</h6>
+                        <h3 >描述</h3>
+                        <textarea class="form-control" id="description" name = "description_i" rows="3" placeholder="100字為限" maxlength = "100" ></textarea>
+                        <h6 id="limit"> 0/100 字</h6>
                     </div>
                     
                     <div class="form-group">
-                        <h3 >上傳圖檔 Upload Image</h3>
+                        <h3 >上傳圖檔</h3>
                         <h6> 解析度要求：至少800x600像素
-                            <br>
-                             Resolution required: 800x600 pixels at least
                         </h6>
                         <!--p class="help-block">拉動圖片來排序(由左至右，由上至下)</p-->
                     </div>

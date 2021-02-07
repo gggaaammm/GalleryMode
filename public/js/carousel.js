@@ -20,6 +20,7 @@ $(function(){
 });
 
 //todo: create progress bar
+/*
 function createProgressbar(id, duration, callback) {
     // We select the div that we want to turn into a progressbar
     var progressbar = document.getElementById(id);
@@ -43,14 +44,14 @@ function createProgressbar(id, duration, callback) {
     // When everything is set up we start the animation
     progressbarinner.style.animationPlayState = 'running';
   }
-
+*/
 async function getResultData(){
 	console.log("get data here");
 	const response = await fetch('/get_result');
     const data = await response.json();
     console.log("data at backend", data);
 
-    createProgressbar('progressbar1', '7s');
+    /*createProgressbar('progressbar1', '7s');*/
     var picsrc = document.getElementsByClassName("img"); //0~4
     var pictitle = document.getElementsByClassName("title");
     var picvote = document.getElementsByClassName("vote");

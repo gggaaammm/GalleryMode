@@ -6,6 +6,7 @@ $(function(){
 	$("#T3").hide();
 	$("#T4").hide();
 	$("#T5").hide();
+	$('#switch').hide();
 	$("#image_location").hide();
 
 
@@ -78,7 +79,7 @@ function create_new_votes(data){
 	for(i=0;i<data.length+1;i++)//need modified
 	{	selected[i] = "N";}
 
-	var isselect = false;
+	var isselect = true;
 	$('input:checkbox').change(
 		function(){
 			if ($(this).is(':checked')) {
@@ -118,36 +119,22 @@ function create_new_votes(data){
 	
 	
 	
-	$(".main.grid .pics >.preview .img .circle").on('click', function(event){
+	
+
+
+	//we need to count how many votes
+	//after create new vote, we can start counting votes
+	$(".main.grid .pics >.preview .img").on('click', function(event){
+		
+		console.log("click on img");		
+		
+		//todo check if toggle is select or preview
 		for(s=0; s<data.length;s++)
 		{
 			document.getElementsByClassName('preview')[s].removeAttribute('data-fancybox');
 			document.getElementsByClassName('preview')[s].removeAttribute('href');
 			document.getElementsByClassName('preview')[s].removeAttribute('data-caption');
 		}
-		
-		console.log("click on circle");
-
-		
-	});
-
-
-	//we need to count how many votes
-	//after create new vote, we can start counting votes
-	$(".main.grid .pics >.preview .img").on('click', function(event){
-
-		for(s=0; s<data.length;s++)
-				{
-					document.getElementsByClassName('preview')[s].setAttribute('data-fancybox','gallery1');
-					document.getElementsByClassName('preview')[s].setAttribute('data-caption',data[s].picture_name);
-					document.getElementsByClassName('preview')[s].setAttribute('href', "upload_images/"+data[s].file_name);
-					
-				}
-		
-		console.log("click on img");		
-		
-		//todo check if toggle is select or preview
-
 		
 
 		if(isselect == true){
