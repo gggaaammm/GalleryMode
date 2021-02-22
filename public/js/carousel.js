@@ -74,39 +74,40 @@ function create_new_slides(data) //a loop: to create slides from database
     
     for(step = 0; step <data.length; step++)
     {
+        //we dont need title and description anymore QQ
         console.log("on creating new slides");
         var newslide = document.createElement('div');
         var newimg = document.createElement('img');
         var newintro = document.createElement('div');
         var newQR = document.createElement('div');
         var newQRimg = document.createElement('img');
-        var newtitle = document.createElement('h1');
+        //var newtitle = document.createElement('h1');
         var newdetail = document.createElement('div');
         var linebreak = document.createElement('br');
         newQRimg.src = "images/qrcode-sample.png";
         newQR.setAttribute("class", "qrcode");
-        newtitle.setAttribute("class", "title");
+        //newtitle.setAttribute("class", "title");
         newintro.setAttribute("class", "intro");
-        newdetail.setAttribute("class", "tip");
-        newdetail.setAttribute("style", "font-size:26px;text-align:justify;word-break:normal");
+        //newdetail.setAttribute("class", "tip");
+        //newdetail.setAttribute("style", "font-size:26px;text-align:justify;word-break:normal");
         //style  rendering
         newintro.classList.add("intro");
         newimg.classList.add("img");
         newQR.classList.add("qrcode");
         newdetail.classList.add("tip");
 
-        //newQR.appendChild(newQRimg);//smallest div    
-        newintro.appendChild(newtitle);
+        newQR.appendChild(newQRimg);//smallest div    
+        //newintro.appendChild(newtitle);
         newintro.appendChild(linebreak);
-        newintro.appendChild(newdetail);
-        newintro.appendChild(newQR);
+        //newintro.appendChild(newdetail);
+        //newintro.appendChild(newQR);
         
         
         newslide.classList.add("slide");
         console.log("pic name:",data[step].picture_name);
         console.log("find file",data[step].file_name );
-        newtitle.textContent = data[step].picture_name;
-        newdetail.textContent = data[step].picture_description;
+        //newtitle.textContent = data[step].picture_name;
+        //newdetail.textContent = data[step].picture_description;
         newimg.src = "upload_images/"+data[step].file_name;
         
         newslide.append(newimg);
@@ -119,8 +120,9 @@ function create_new_slides(data) //a loop: to create slides from database
 
 $(this).on('afterChange', function(event, slick, currentSlide) {
     //console.log(slick, currentSlide); //length = slick.$slides.length-1
-    if (Math.round(currentSlide%7)==0 && currentSlide!=0) {
+    if (Math.round(currentSlide%3)==0 && currentSlide!=0) {
       console.log("change to result");
+    //todo bug: if pics<10, no result showing  
       
       $('.carousel-wrapper').slick('slickPause');
     var timeout1 = window.setTimeout(( () => {
@@ -128,7 +130,7 @@ $(this).on('afterChange', function(event, slick, currentSlide) {
         $('.clearfix').show();
         $('.carousel').hide();
 
-    } ), 2000);
+    } ), 6000);
     // the time from new pictures to result show
 
     var timeout2 = window.setTimeout(( () => {

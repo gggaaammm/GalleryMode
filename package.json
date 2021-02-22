@@ -20,8 +20,9 @@
     "express-fileupload": "^1.2.0",
     "express-formidable": "^1.2.0",
     "formidable": "^1.2.2",
+    "iottalk-js": "^2.0.4",
     "nedb": "^1.8.0",
     "nodemon": "^2.0.6",
-    "socket.io": "^3.1.0"
+    "socket.io": "^3.1.1"
   }
 }

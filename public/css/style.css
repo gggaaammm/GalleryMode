@@ -93,7 +93,9 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      height: calc(100vh - 30px); }
+      height: calc(100vh - 30px); 
+      
+    }
       @media screen and (orientation: landscape) {
         .carousel .carousel-wrapper .slide {
           flex-direction: row; } }
@@ -125,10 +127,14 @@
        .carousel .carousel-wrapper .slide img {
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
         max-width: 100%; 
-        max-height: 95%; } 
+        max-height: 100%; /*was 95%*/
+        /*new added*/
+        height:100%;
+        object-fit: contain;
+      } 
         @media screen and (orientation: landscape) {
           .carousel .carousel-wrapper .slide img {
-            max-width: 70%; } }
+            max-width: 100%; /* was 70%*/} }
 
 .main.grid {
   display: flex;
@@ -296,33 +302,3 @@ body {
   {  
     content:'s';
   }  
-
-  .progressbar {
-    width: 80%;
-    margin: 25px auto;
-    border: solid 1px #000;
-  }
-  .progressbar .inner {
-    height: 15px;
-    animation: progressbar-countdown;
-    /* Placeholder, this will be updated using javascript */
-    animation-duration: 40s;
-    /* We stop in the end */
-    animation-iteration-count: 1;
-    /* Stay on pause when the animation is finished finished */
-    animation-fill-mode: forwards;
-    /* We start paused, we start the animation using javascript */
-    animation-play-state: paused;
-    /* We want a linear animation, ease-out is standard */
-    animation-timing-function: linear;
-  }
-  @keyframes progressbar-countdown {
-    0% {
-      width: 100%;
-      background: #0F0;
-    }
-    100% {
-      width: 0%;
-      background: #F00;
-    }
-  }
