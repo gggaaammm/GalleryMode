@@ -195,7 +195,7 @@ function create_new_votes(data){
 			//end of updating
 			
 
-			document.getElementById('sumdemo').innerHTML = document.getElementById('sumdemo').innerHTML+idx.children[0].id;
+			document.getElementById('sum').innerHTML = document.getElementById('sum').innerHTML+idx.children[0].id;
 			var voteid="";
 			for(y=0; y<data.length+1;y++) //need modified
 			{
@@ -205,7 +205,7 @@ function create_new_votes(data){
 					voteid = voteid+" "+y;
 				}
 			}
-			document.getElementById('sumdemo').innerHTML = "You vote:"+voteid;
+			document.getElementById('sum').innerHTML = "You vote:"+voteid;
 
 
 			
