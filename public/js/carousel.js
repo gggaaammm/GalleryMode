@@ -120,7 +120,7 @@ function create_new_slides(data) //a loop: to create slides from database
 
 $(this).on('afterChange', function(event, slick, currentSlide) {
     //console.log(slick, currentSlide); //length = slick.$slides.length-1
-    if (Math.round(currentSlide%3)==0 && currentSlide!=0) {
+    if (Math.round(currentSlide%5)==0 && currentSlide!=0) {
       console.log("change to result");
     //todo bug: if pics<10, no result showing  
       

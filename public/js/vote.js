@@ -1,19 +1,27 @@
 $(function(){
 	console.log("voting!");
 
+
 	$("#T1").hide();
 	$("#T2").hide();
 	$("#T3").hide();
 	$("#T4").hide();
 	$("#T5").hide();
-	$('#switch').hide();
+	$('#switch').hide();//temporary hide the switch toggle
 	$("#image_location").hide();
 
 
 	getData();
+	set_fancy_option();
+
 	
 });
 var selected = Array(20); //need modified;
+
+
+
+
+
 
 
 function get_uid()
@@ -30,12 +38,7 @@ function get_uid()
 	return uid;
 }
 
-/*$(document).ready(function() {
-	$(".fancybox").fancybox({
-		openEffect	: 'none',
-		closeEffect	: 'none'
-	});
-});*/
+
 
 function create_new_votes(data){
 	// document.getElementById('0').style.display= "none";
@@ -57,9 +60,11 @@ function create_new_votes(data){
 
 		var newvote = document.createElement('a');
 		newvote.setAttribute("class","preview");
-		newvote.setAttribute("data-fancybox", "gallery1");
+		newvote.setAttribute("data-fancybox", "gallery");
 		newvote.setAttribute("href", fileurl);
-		newvote.setAttribute('data-caption',data[step].picture_name);
+		var voting_btn = '<button id=b'+step+' class="fancy_btn">Vote!</button>';
+		newvote.setAttribute('data-caption',data[step].picture_name+'<br>'+data[step].picture_description+'<br>'+voting_btn);
+		newvote.setAttribute('data-thumb', fileurl);
 		var newimg = document.createElement('div');
 		
 		newimg.setAttribute("class","img");
@@ -79,6 +84,171 @@ function create_new_votes(data){
 	for(i=0;i<data.length+1;i++)//need modified
 	{	selected[i] = "N";}
 
+	// Custom options
+	$( '[data-fancybox="gallery"]' ).fancybox({
+
+		// caption : function( instance, item ) {
+		// 	var caption = $(this).data('caption') || '';
+		// 	//console.log(selected[0]);
+		// 	//console.log(caption);
+		// 	return ( caption.length ? caption + '<br />' : '' )/* + 'Image <span data-fancybox-index></span> of <span data-fancybox-count></span>'*/;
+		//   },
+
+	beforeShow: function() {
+        $('.caption--image').remove();
+    },
+    afterShow: function() {
+		
+
+        var caption = $(".fancybox-caption");
+		var innerCaption = caption.clone().addClass('caption--image');
+        $(".fancybox-slide--current .fancybox-content").append(innerCaption);
+        caption.not('.caption--image').addClass('caption--bottom');
+
+		$(".fancy_btn").on('click', function(event){
+			console.log("click!");
+			var id = this.id;
+			
+			console.log("a user click "+id);
+
+			//shoud dark out the voted pics
+			var parent = document.getElementById($.fancybox.getInstance().current.index+1 );
+			var child = parent.children[0];
+
+			console.log("a user click "+$.fancybox.getInstance().current.index);
+			console.log("get child:"+child.innerHTML);
+
+			//trigger vote button to unvote
+			var src = $('.fancybox-slide--current .fancybox-image').attr('src');
+			var idx = $('a[href="'+src+'"]')[0];
+			console.log(src);
+			console.log(idx.children[0].id);
+			console.log(selected[idx.children[0].id]);
+			if(selected[idx.children[0].id]=="N") 
+			{
+				if(current_votes>limit)
+				{
+					alert("you cannot vote greaters than "+limit);
+				}
+				else
+				{
+					current_votes++;
+					document.getElementById(id).innerHTML ="Unvote!";
+					document.getElementById(id).style.backgroundColor = "Red";
+					console.log("vote this!"); 
+					selected[idx.children[0].id]="Y";
+
+					//update the fancybox caption "button change!"
+					var newbtn = '<button id=b'+$.fancybox.getInstance().current.index+' class="fancy_btn" style="background-color:Red;">Unvote!</button>';
+					var newcaption = data[$.fancybox.getInstance().current.index].picture_name+'<br>'+
+									data[$.fancybox.getInstance().current.index].picture_description+'<br>'+
+									newbtn;
+					parent.style.opacity = 0.3;
+					child.style.backgroundColor = "black";
+					child.style.color = "white"
+					child.innerHTML = "V";
+				}
+				
+
+
+			}
+			else 
+			{
+				current_votes--;
+				document.getElementById(id).innerHTML ="Vote!";
+				document.getElementById(id).style.backgroundColor = "Green";
+				console.log("unvote this!"); 
+				selected[idx.children[0].id]="N";
+
+				//update the fancybox caption "button change!"
+				var newbtn = '<button id=b'+$.fancybox.getInstance().current.index+' class="fancy_btn" style="background-color:Green;">Vote!</button>';
+				var newcaption = data[$.fancybox.getInstance().current.index].picture_name+'<br>'+
+								data[$.fancybox.getInstance().current.index].picture_description+'<br>'+
+								newbtn;
+				parent.style.opacity = 1.0;
+				child.style.backgroundColor = "#ffc107";
+				child.style.color = "black";
+				child.innerHTML = $.fancybox.getInstance().current.index+1;					
+
+			} 
+
+
+			
+
+			var instance = $.fancybox.getInstance();
+			//console.log(instance);
+
+			//update the fancy box caption
+			console.log($.fancybox.getInstance().group[ $.fancybox.getInstance().current.index ].opts.caption);
+			console.log($.fancybox.getInstance().current.opts.caption);
+			//console.log("not changing:"+ data[$.fancybox.getInstance().current.index].picture_name);
+			//console.log("not changing:"+ data[$.fancybox.getInstance().current.index].picture_description);
+			//console.log("changing to :"+newbtn)
+			
+			$.fancybox.getInstance().current.opts.$orig.data('caption', newcaption);
+			$.fancybox.getInstance().group[ $.fancybox.getInstance().current.index ].opts.caption = newcaption;
+			$.fancybox.getInstance().current.opts.caption = newcaption;
+			$.fancybox.getInstance().updateControls();
+
+			console.log($.fancybox.getInstance().group[ $.fancybox.getInstance().current.index ].opts.caption);
+			console.log($.fancybox.getInstance().current.opts.caption);
+			//end of updating
+			
+
+			document.getElementById('sumdemo').innerHTML = document.getElementById('sumdemo').innerHTML+idx.children[0].id;
+			var voteid="";
+			for(y=0; y<data.length+1;y++) //need modified
+			{
+				if(selected[y]=="Y")//
+				{
+					console.log(y);
+					voteid = voteid+" "+y;
+				}
+			}
+			document.getElementById('sumdemo').innerHTML = "You vote:"+voteid;
+
+
+			
+			
+
+		});
+		
+    },
+		buttons : [
+		// 'fb',
+		// 'tw',
+		// 'share',
+		'fullScreen',
+		'thumbs',
+		'close'
+		],
+		helpers: {
+            thumbs: {
+                width: 50,
+                height: 50,
+                source: function (current) {
+                    return $(current.element).data('thumbnail');
+                },
+            },
+            title: {
+                type: 'outside'
+
+            }
+        }
+
+		
+		});
+		
+	/*
+	for(s=0; s<data.length;s++)
+	{
+		document.getElementsByClassName('preview')[s].setAttribute('data-fancybox','gallery1');
+		document.getElementsByClassName('preview')[s].setAttribute('data-caption',data[s].picture_name);
+		document.getElementsByClassName('preview')[s].setAttribute('href', "upload_images/"+data[s].file_name);
+		
+	}*/
+
+	
 	var isselect = true;
 	$('input:checkbox').change(
 		function(){
@@ -91,12 +261,12 @@ function create_new_votes(data){
 			if(isselect == true){
 				console.log("show big image");
 
-				for(s=0; s<data.length;s++)
+				/*for(s=0; s<data.length;s++)
 				{
 					document.getElementsByClassName('preview')[s].removeAttribute('data-fancybox');
 					document.getElementsByClassName('preview')[s].removeAttribute('href');
 					document.getElementsByClassName('preview')[s].removeAttribute('data-caption');
-				}
+				}*/
 				
 				
 
@@ -106,13 +276,13 @@ function create_new_votes(data){
 			{
 				console.log("select");
 
-				for(s=0; s<data.length;s++)
+				/*for(s=0; s<data.length;s++)
 				{
 					document.getElementsByClassName('preview')[s].setAttribute('data-fancybox','gallery1');
 					document.getElementsByClassName('preview')[s].setAttribute('data-caption',data[s].picture_name);
 					document.getElementsByClassName('preview')[s].setAttribute('href', "upload_images/"+data[s].file_name);
 					
-				}
+				}*/
 				
 			}
 		});
@@ -120,23 +290,14 @@ function create_new_votes(data){
 	
 	
 	
-
+		
 
 	//we need to count how many votes
 	//after create new vote, we can start counting votes
-	$(".main.grid .pics >.preview .img").on('click', function(event){
+	/*$(".main.grid .pics >.preview .img").on('click', function(event){
 		
 		console.log("click on img");		
-		
-		//todo check if toggle is select or preview
-		for(s=0; s<data.length;s++)
-		{
-			document.getElementsByClassName('preview')[s].removeAttribute('data-fancybox');
-			document.getElementsByClassName('preview')[s].removeAttribute('href');
-			document.getElementsByClassName('preview')[s].removeAttribute('data-caption');
-		}
-		
-
+	
 		if(isselect == true){
 			console.log("select image");
 
@@ -190,7 +351,7 @@ function create_new_votes(data){
 		}
 		
 		
-	});
+	});*/
 }
 
 
@@ -277,3 +438,38 @@ $("#submitvote").click(function(){
 
 //todo preview select : out
 //todo  circle: select img: preview
+function set_fancy_option()
+{
+		// Create templates for buttons
+	$.fancybox.defaults.btnTpl.fb = '<button data-fancybox-fb class="fancybox-button fancybox-button--fb" title="Facebook">' +
+	'<svg viewBox="0 0 24 24">' +
+	'<path d="M22.676 0H1.324C.594 0 0 .593 0 1.324v21.352C0 23.408.593 24 1.324 24h11.494v-9.294h-3.13v-3.62h3.13V8.41c0-3.1 1.894-4.785 4.66-4.785 1.324 0 2.463.097 2.795.14v3.24h-1.92c-1.5 0-1.793.722-1.793 1.772v2.31h3.584l-.465 3.63h-3.12V24h6.115c.733 0 1.325-.592 1.325-1.324V1.324C24 .594 23.408 0 22.676 0"/>' +
+	'</svg>' +
+	'</button>';
+
+	$.fancybox.defaults.btnTpl.tw = '<button data-fancybox-tw class="fancybox-button fancybox-button--tw" title="Twitter">' +
+	'<svg viewBox="0 0 24 24">' +
+	'<path d="M23.954 4.57c-.885.388-1.83.653-2.825.774 1.013-.61 1.793-1.574 2.162-2.723-.95.556-2.005.96-3.127 1.185-.896-.96-2.173-1.56-3.59-1.56-2.718 0-4.92 2.204-4.92 4.918 0 .39.044.765.126 1.124C7.69 8.094 4.067 6.13 1.64 3.16c-.427.723-.666 1.562-.666 2.476 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.06c0 2.386 1.693 4.375 3.946 4.828-.413.11-.85.17-1.296.17-.314 0-.615-.03-.916-.085.63 1.952 2.445 3.376 4.604 3.416-1.68 1.32-3.81 2.105-6.102 2.105-.39 0-.78-.022-1.17-.066 2.19 1.394 4.768 2.21 7.557 2.21 9.054 0 14-7.497 14-13.987 0-.21 0-.42-.016-.63.962-.69 1.8-1.56 2.46-2.548l-.046-.02z"/>' +
+	'</svg>' +
+	'</button>';
+
+	// Make buttons clickable using event delegation
+	$('body').on('click', '[data-fancybox-fb]', function() {
+	window.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURIComponent(window.location.href)+"&t="+encodeURIComponent(document.title), '','left=0,top=0,width=600,height=300,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');
+	});
+
+	$('body').on('click', '[data-fancybox-tw]', function() {
+	window.open('http://twitter.com/share?url='+encodeURIComponent(window.location.href)+'&text='+encodeURIComponent(document.title), '', 'left=0,top=0,width=600,height=300,menubar=no,toolbar=no,resizable=yes,scrollbars=yes');
+	});
+
+
+	// Custom options
+	$( '[data-fancybox="gallery"]' ).fancybox({
+	buttons : [
+	'fb',
+	'tw',
+	'close',
+	'share'
+	]
+	});
+}

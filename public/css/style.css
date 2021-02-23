@@ -301,4 +301,53 @@ body {
   input:checked + .slider:after
   {  
     content:'s';
-  }  
+  } 
+
+/*fancy box effect*/
+  .fancybox-button--fb {
+    padding: 14px;
+  }
+  
+  .fancybox-button--tw {
+    padding: 13px;
+  }
+  
+  .fancybox-button--close {
+    padding: 9px;
+  }
+  
+  .fancybox-button--fb svg path,
+  .fancybox-button--tw svg path {
+    fill: #eee;
+    stroke-width: 0;
+  }
+
+
+  .fancybox-caption.caption--image {
+    position:fixed;
+    width: 100%;
+    /*bottom: 0;*/
+    padding: 10px;
+    color: rgb(255, 255, 255);
+    transform: translateY(100%);
+    /*mix-blend-mode:overlay ;*/
+ }
+ 
+ .fancybox-inner > .fancybox-caption {
+     display: none;
+ }  
+
+
+ /*fancybox button*/
+ .fancy_btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
