@@ -62,8 +62,8 @@ function create_new_votes(data){
 		newvote.setAttribute("class","preview");
 		newvote.setAttribute("data-fancybox", "gallery");
 		newvote.setAttribute("href", fileurl);
-		var voting_btn = '<button id=b'+step+' class="fancy_btn">Vote!</button>';
-		newvote.setAttribute('data-caption',data[step].picture_name+'<br>'+data[step].picture_description+'<br>'+voting_btn);
+		var voting_btn = '<button id=b'+step+' class="fancy_btn" style="background-color:Green;">Vote!</button>';
+		newvote.setAttribute('data-caption',voting_btn+'<br>'+data[step].picture_name+'<br>'+data[step].picture_description);
 		newvote.setAttribute('data-thumb', fileurl);
 		var newimg = document.createElement('div');
 		
@@ -87,27 +87,33 @@ function create_new_votes(data){
 	// Custom options
 	$( '[data-fancybox="gallery"]' ).fancybox({
 
-		// caption : function( instance, item ) {
-		// 	var caption = $(this).data('caption') || '';
-		// 	//console.log(selected[0]);
-		// 	//console.log(caption);
-		// 	return ( caption.length ? caption + '<br />' : '' )/* + 'Image <span data-fancybox-index></span> of <span data-fancybox-count></span>'*/;
-		//   },
+		
+	
 
-	beforeShow: function() {
+		caption : function( instance, item ) {
+			var caption = $(this).data('caption') || '';
+			//console.log(selected[0]);
+			//console.log(caption);
+			return ( caption.length ? caption + '<br />' : '' )/* + 'Image <span data-fancybox-index></span> of <span data-fancybox-count></span>'*/;
+		  },
+
+	/*beforeShow: function() {
         $('.caption--image').remove();
-    },
+		
+    },*/
     afterShow: function() {
 		
-
+		//$('.fancybox-caption__body').remove();
         var caption = $(".fancybox-caption");
 		var innerCaption = caption.clone().addClass('caption--image');
-        $(".fancybox-slide--current .fancybox-content").append(innerCaption);
+        //$(".fancybox-slide--current .fancybox-content").append(innerCaption);
         caption.not('.caption--image').addClass('caption--bottom');
 
 		$(".fancy_btn").on('click', function(event){
+			console.log(event);
 			console.log("click!");
 			var id = this.id;
+
 			
 			console.log("a user click "+id);
 
@@ -140,17 +146,14 @@ function create_new_votes(data){
 
 					//update the fancybox caption "button change!"
 					var newbtn = '<button id=b'+$.fancybox.getInstance().current.index+' class="fancy_btn" style="background-color:Red;">Unvote!</button>';
-					var newcaption = data[$.fancybox.getInstance().current.index].picture_name+'<br>'+
-									data[$.fancybox.getInstance().current.index].picture_description+'<br>'+
-									newbtn;
+					var newcaption = newbtn+'<br>'+
+									data[$.fancybox.getInstance().current.index].picture_name+'<br>'+
+									data[$.fancybox.getInstance().current.index].picture_description;
 					parent.style.opacity = 0.3;
 					child.style.backgroundColor = "black";
 					child.style.color = "white"
 					child.innerHTML = "V";
 				}
-				
-
-
 			}
 			else 
 			{
@@ -162,9 +165,9 @@ function create_new_votes(data){
 
 				//update the fancybox caption "button change!"
 				var newbtn = '<button id=b'+$.fancybox.getInstance().current.index+' class="fancy_btn" style="background-color:Green;">Vote!</button>';
-				var newcaption = data[$.fancybox.getInstance().current.index].picture_name+'<br>'+
-								data[$.fancybox.getInstance().current.index].picture_description+'<br>'+
-								newbtn;
+				var newcaption =newbtn+'<br>'+ 
+								data[$.fancybox.getInstance().current.index].picture_name+'<br>'+
+								data[$.fancybox.getInstance().current.index].picture_description;
 				parent.style.opacity = 1.0;
 				child.style.backgroundColor = "#ffc107";
 				child.style.color = "black";
@@ -206,11 +209,6 @@ function create_new_votes(data){
 				}
 			}
 			document.getElementById('sum').innerHTML = "You vote:"+voteid;
-
-
-			
-			
-
 		});
 		
     },
@@ -472,4 +470,9 @@ function set_fancy_option()
 	'share'
 	]
 	});
+}
+
+function click_events()
+{
+
 }

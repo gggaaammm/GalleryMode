@@ -326,24 +326,27 @@ body {
   }
 
 
-  .fancybox-caption.caption--image {
+  /*.fancybox-caption.caption--image {
     position:fixed;
     width: 100%;
-    /*bottom: 0;*/
-    padding: 10px;
+    bottom: 0;
+    padding-top: 10px;
     color: rgb(255, 255, 255);
     transform: translateY(100%);
-    /*mix-blend-mode:overlay ;*/
  }
  
  .fancybox-inner > .fancybox-caption {
      display: none;
- }  
+ } */
+
+ .fancybox-caption-wrap {
+  pointer-events: all;
+}
 
 
  /*fancybox button*/
  .fancy_btn {
-  background-color: #4CAF50;
+  /*background-color: #4CAF50;*/
   border: none;
   color: white;
   padding: 4px 8px;
