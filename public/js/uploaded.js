@@ -47,7 +47,7 @@ function checkFileDetails() {
             // FILE NAME AND EXTENSION.
             fileName = fi.files.item(i).name;
             fileExtension = fileName.replace(/^.*\./, '');
-
+            console.log("file name is"+fileName);
             // CHECK IF ITS AN IMAGE FILE.
             // TO GET THE IMAGE WIDTH AND HEIGHT, WE'LL USE fileReader().
             if (fileExtension == 'png' || fileExtension == 'jpg' || fileExtension == 'jpeg' ||fileExtension =='bmp'||fileExtension=='gif') {
