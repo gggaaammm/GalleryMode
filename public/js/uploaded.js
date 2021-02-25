@@ -8,8 +8,28 @@ $(function(){
 
 });
 
-//todo: check the pixel of the picture
+//todo: multiple handling
+$('input:radio[name="pagenum"]').change(
+    
+    function(){
+        let toggle = document.querySelector('#upload_file');
+        if ($(this).is(':checked') && $(this).val() == 'one') {
+            // append goes here
+            console.log("one is selected");
+            document.getElementById("disp").innerHTML = "One";
+            if(toggle){
+                toggle.removeAttribute('multiple');
+            }
 
+        }
+        else
+        {
+            document.getElementById("disp").innerHTML = "Multiple";
+            if(toggle){
+                toggle.setAttribute('multiple', 'multiple');
+            }
+        }
+    });
 
 
 $("form").submit(function(event){

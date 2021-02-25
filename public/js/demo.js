@@ -24,18 +24,31 @@ function timeout(){
     setTimeout(function() { 
        
         
-        console.log("Start");
+        console.log("[Progress bar] start");
         $('.demo').circleProgress('redraw'); // use current configuration and redraw
-
+        //console.log($('.ui-state-default')[0].innerHTML);
         timeout();
     }, 5000);
 
 }
+// sortable moving jquery ui
+$( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );
 
-
-
-
-
+$('input:radio[name="pagenum"]').change(
+    function(){
+        if ($(this).is(':checked') && $(this).val() == 'one') {
+            // append goes here
+            console.log("one is selected");
+            document.getElementById("disp").innerHTML = "One";
+        }
+        else
+        {
+            document.getElementById("disp").innerHTML = "Multiple";
+        }
+    });
 // getData();
 //     async function getData(){
 //         const response = await fetch('/app');
