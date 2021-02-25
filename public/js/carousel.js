@@ -20,6 +20,8 @@ $(function(){
 });
 
 //todo: create progress bar
+
+
 /*
 function createProgressbar(id, duration, callback) {
     // We select the div that we want to turn into a progressbar
@@ -136,6 +138,7 @@ $(this).on('afterChange', function(event, slick, currentSlide) {
     var timeout2 = window.setTimeout(( () => {
         console.log("end");
         $('.carousel-wrapper').slick('slickPlay');
+        
 
     } ), 6000);
     // the time to playing the result

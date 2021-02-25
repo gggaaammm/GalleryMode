@@ -120,7 +120,8 @@ app.get('/app', (requset, response)=>{
 });
 
 app.get('/Demo',(request, response)=>{
-    response.sendFile(__dirname+'/public/templates/all.html');
+  //demo for all feature functions
+    response.sendFile(__dirname+'/public/templates/demo.html');
 });
 
 app.get('/Vote',(request, response)=>{
