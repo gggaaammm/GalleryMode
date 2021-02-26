@@ -4,8 +4,14 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/manage.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     
 </head>
+<style>
+    #sortable { list-style-type: none; margin: 0; padding: 0; width: 450px; }
+    #sortable li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 90px; font-size: 4em; text-align: center; }
+    </style>
 <body>
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -35,7 +41,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-9">
-                            <input id="upload_file" name="photo" type="file" accept=".png,.jpg,.jpeg, .bmp, .gif " onchange="checkFileDetails()" multiple="multiple"/>
+                            <input id="upload_file" name="photo" type="file" accept=".png,.jpg,.jpeg, .bmp, .gif " onchange="checkFileDetails()" multiple="multiple">
                         </div>
                         <div class="col-md-3 center">
                             <input id="submit" class="btn btn-warning" type="submit" value="上傳 Upload"/>
@@ -54,6 +60,20 @@
                     <div id="pic_row" >
                         <div class="row" id="movable_pic_row"></div>
                         <p id="img"></p>
+                        <ul id="sortable">
+                            <li class="ui-state-default">1</li>
+                            <li class="ui-state-default">2</li>
+                            <li class="ui-state-default">3</li>
+                            <li class="ui-state-default">4</li>
+                            <li class="ui-state-default">5</li>
+                            <li class="ui-state-default">6</li>
+                            <li class="ui-state-default">7</li>
+                            <li class="ui-state-default">8</li>
+                            <li class="ui-state-default">9</li>
+                            <li class="ui-state-default">10</li>
+                            <li class="ui-state-default">11</li>
+                            <li class="ui-state-default">12</li>
+                        </ul>
                         <p id="fileInfo"></p>
                     </div>
                 </div>

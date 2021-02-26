@@ -1,7 +1,7 @@
 
 $(function(){
     console.log("upload");
-    
+    $('.ui-state-default').hide();
     $(document).on("submit", "#upload-photos", function(event){ uplaod_demo_handler(event); });
     $(document).on("submit", "#uploadForm", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#upload-photos", function(event){ uplaod_btn_handler(event); });
@@ -61,6 +61,9 @@ function checkFileDetails() {
     var fi = document.getElementById('upload_file');
     if (fi.files.length > 0) {      // FIRST CHECK IF ANY FILE IS SELECTED.
        
+
+        const besingle = fi.files.length;
+
         for (var i = 0; i <= fi.files.length - 1; i++) {
             var fileName, fileExtension, fileSize, fileType, dateModified;
 
@@ -71,7 +74,15 @@ function checkFileDetails() {
             // CHECK IF ITS AN IMAGE FILE.
             // TO GET THE IMAGE WIDTH AND HEIGHT, WE'LL USE fileReader().
             if (fileExtension == 'png' || fileExtension == 'jpg' || fileExtension == 'jpeg' ||fileExtension =='bmp'||fileExtension=='gif') {
-               readImageFile(fi.files.item(i));             // GET IMAGE INFO USING fileReader().
+               // on dev
+                if(besingle==1){
+                    readImageFile(fi.files.item(i));
+                }
+                else
+                {
+                    readMultiFiles(fi.files.item(i), i);    
+                }
+                         // GET IMAGE INFO USING fileReader().
             }
             else {
                 // IF THE FILE IS NOT AN IMAGE.
@@ -134,6 +145,54 @@ function checkFileDetails() {
             
             reader.readAsDataURL(file);
         }
+
+        function readMultiFiles(file, number) {
+            var reader = new FileReader(); // CREATE AN NEW INSTANCE.
+            console.log("id"+number);
+            reader.onload = function (e) {
+                var img = new Image();      
+                img.src = e.target.result;
+                var img_preview = new Image();      
+                img_preview.src = e.target.result;
+                var bgimg = e.target.result;                     
+
+                img.onload = function () {
+                    var w = this.width;
+                    var h = this.height;
+
+                    document.getElementById('fileInfo').innerHTML =
+                            'Name: <b>' + file.name + '</b> <br />' +
+                            'File Extension: <b>' + fileExtension + '</b> <br />' +
+                            'Size: <b>' + Math.round((file.size / 1024)) + '</b> KB <br />' +
+                            'Resolution: <b>' + w + 'x' + h + ' pixels </b> <br />';
+
+                    if(w>600 && h>600){
+                        document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
+                        'Permission: <span style="color: green;font-size:24px"><b> Permitted</b></span>';
+                        document.getElementById("submit").disabled = false;
+                    }
+                    else{
+                        document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
+                        'Permission:<span style="color: red;font-size:24px"><b> Denied</b></span><br/> ' +
+                        '<span style="font-size:20px"><b>  請選擇解析度大於 600x600 之作品 </b></span>'
+                        document.getElementById("submit").disabled = true;
+                    }
+                }
+                img_preview.setAttribute('style','width:200px');
+                //console.log(img_preview);
+                //$('img').empty();
+                //$('#movable_pic_row').append(img_preview);
+                
+                //set specific number of images
+                $('.ui-state-default')[number].style.display = "block";
+                $('.ui-state-default')[number].style.backgroundImage='url('+bgimg+')';
+
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        
     }
 }
 
@@ -205,3 +264,8 @@ async function uplaod_demo_handler(event){
     console.log(res_data);
 }
 
+
+$( function() {
+    $( "#sortable" ).sortable();
+    $( "#sortable" ).disableSelection();
+  } );

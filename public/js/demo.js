@@ -26,7 +26,8 @@ function timeout(){
         
         console.log("[Progress bar] start");
         $('.demo').circleProgress('redraw'); // use current configuration and redraw
-        //console.log($('.ui-state-default')[0].innerHTML);
+        $('.ui-state-default')[0].innerHTML="38";
+        $('.ui-state-default')[0].style.backgroundImage="url('/images/photo_1.jpeg')";
         timeout();
     }, 5000);
 
