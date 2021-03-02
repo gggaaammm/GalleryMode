@@ -3,7 +3,7 @@ $(function(){
     console.log("upload");
     $('.ui-state-default').hide();
     $(document).on("submit", "#upload-photos", function(event){ uplaod_demo_handler(event); });
-    $(document).on("submit", "#uploadForm", function(event){ uplaod_demo_handler(event); });
+    //$(document).on("submit", "#uploadForm", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#upload-photos", function(event){ uplaod_btn_handler(event); });
 
 });
@@ -59,15 +59,16 @@ textarea.addEventListener("input", function(){
 function checkFileDetails() {
     
     var fi = document.getElementById('upload_file');
+    
     if (fi.files.length > 0) {      // FIRST CHECK IF ANY FILE IS SELECTED.
        
-
         const besingle = fi.files.length;
 
         for (var i = 0; i <= fi.files.length - 1; i++) {
             var fileName, fileExtension, fileSize, fileType, dateModified;
-
+            
             // FILE NAME AND EXTENSION.
+            
             fileName = fi.files.item(i).name;
             fileExtension = fileName.replace(/^.*\./, '');
             console.log("file name is"+fileName);
@@ -86,7 +87,7 @@ function checkFileDetails() {
             }
             else {
                 // IF THE FILE IS NOT AN IMAGE.
-                    
+                // however, file is always an image    
                 fileSize = fi.files.item(i).size;  // FILE SIZE.
                 fileType = fi.files.item(i).type;  // FILE TYPE.
                 dateModified = fi.files.item(i).lastModifiedDate;  // FILE LAST MODIFIED.
@@ -98,6 +99,12 @@ function checkFileDetails() {
                         'Size: <b>' + Math.round((fileSize / 1024)) + '</b> KB <br />' +
                         'Type: <b>' + fileType + '</b> <br />' +
                         'Last Modified: <b>' + dateModified + '</b> <br />';
+            }
+
+            if(besingle!=1 && i ==fi.files.length -1 )
+            {
+                console.log("last pic of gif");
+                createGIF();
             }
         }
 
@@ -148,47 +155,27 @@ function checkFileDetails() {
 
         function readMultiFiles(file, number) {
             var reader = new FileReader(); // CREATE AN NEW INSTANCE.
-            console.log("id"+number);
+            
+            console.log("id: "+number);
             reader.onload = function (e) {
-                var img = new Image();      
+                var img = new Image();   
                 img.src = e.target.result;
+
+                
                 var img_preview = new Image();      
                 img_preview.src = e.target.result;
                 var bgimg = e.target.result;                     
-
+                
                 img.onload = function () {
                     var w = this.width;
                     var h = this.height;
-
-                    // document.getElementById('fileInfo').innerHTML =
-                    //         'Name: <b>' + file.name + '</b> <br />' +
-                    //         'File Extension: <b>' + fileExtension + '</b> <br />' +
-                    //         'Size: <b>' + Math.round((file.size / 1024)) + '</b> KB <br />' +
-                    //         'Resolution: <b>' + w + 'x' + h + ' pixels </b> <br />';
-
-                    // if(w>600 && h>600){
-                    //     document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
-                    //     'Permission: <span style="color: green;font-size:24px"><b> Permitted</b></span>';
-                    //     document.getElementById("submit").disabled = false;
-                    // }
-                    // else{
-                    //     document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
-                    //     'Permission:<span style="color: red;font-size:24px"><b> Denied</b></span><br/> ' +
-                    //     '<span style="font-size:20px"><b>  請選擇解析度大於 600x600 之作品 </b></span>'
-                    //     document.getElementById("submit").disabled = true;
-                    // }
                 }
                 img_preview.setAttribute('style','width:200px');
-                //console.log(img_preview);
-                //$('img').empty();
-                //$('#movable_pic_row').append(img_preview);
-                
                 //set specific number of images
                 $('.ui-state-default')[number].style.display = "block";
                 $('.ui-state-default')[number].style.backgroundImage='url('+bgimg+')';
-
+                
             };
-            
             reader.readAsDataURL(file);
         }
 
@@ -257,11 +244,11 @@ async function uplaod_demo_handler(event){
     };   
                 
     //send
-    const response1 = fetch('/upload_photos', options1);
-    console.log(options1);
-    alert("file upload completed!");
-    const res_data =await response;
-    console.log(res_data);
+    //const response1 = fetch('/upload_photos', options1);
+    //console.log(options1);
+    //alert("file upload completed!");
+    // const res_data =await response;
+    // console.log(res_data);
 }
 
 
@@ -269,3 +256,24 @@ $( function() {
     $( "#sortable" ).sortable();
     $( "#sortable" ).disableSelection();
   } );
+
+
+
+  //gif preview 
+  var createGIF = function() {
+    gifshot.createGIF({
+      images: [
+        'https://unsplash.it/200/200/?',
+        'https://unsplash.it/200/300/?',
+        'https://unsplash.it/300/200/?'
+      ],
+      interval: .4
+    }, function(obj) {
+      if (!obj.error) {
+        var image = obj.image,
+          animatedImage = document.getElementById('animatedGIF');
+        animatedImage.src = image;
+        //the src is encoded as base64
+      }
+    })
+  };

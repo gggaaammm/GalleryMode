@@ -167,6 +167,15 @@ app.post('/up', function(req, res) {
   console.log("File management!");
   console.log(req.body);
 
+  console.log("it contains"+Object.keys(req.files.photo).length)
+
+
+  // if single file
+
+  // if multiple file
+
+
+
   if (!req.files || Object.keys(req.files).length === 0) {
     res.redirect('/Upload');
     return;
@@ -180,7 +189,10 @@ app.post('/up', function(req, res) {
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.photo;
   
-  console.log(sampleFile);
+  
+  console.log(sampleFile[0]);
+  console.log("+");
+  console.log(sampleFile[1]);
   // Use the mv() method to place the file somewhere on your server
   sampleFile.mv(__dirname +'/public/upload_images/'+req.files.photo.name, function(err) {
     if (err)

@@ -50,47 +50,50 @@ $('input:radio[name="pagenum"]').change(
             document.getElementById("disp").innerHTML = "Multiple";
         }
     });
-// getData();
-//     async function getData(){
-//         const response = await fetch('/app');
-//         const data = await response.json();
-//         console.log(data);
-//         for(item of data){
-//             const root = document.createElement('div');
-//             const user_id = document.createElement('div');
-//             const img = document.createElement('div');
-//             const date = document.createElement('div');
-                
-//             user_id.textContent =`user id: ${item.user_id}`
-//             img.textContent =`about picture: ${item.picture_name}, ${item.picture_description}`
-//             date.textContent = `${item.datetime}`
-
-//             root.append(user_id, img, date);
-//             document.body.append(root);
-//         }
-//     }
-
-// const handleImageUpload = event => {
-//   const files = event.target.files
-//   const formData = new FormData()
-//   formData.append('myFile', files[0])
-
-//   fetch('/saveImage', {
-//     method: 'POST',
-//     body: formData
-//   })
-//   .then(response => response.json())
-//   .then(data => {
-//     console.log(data.path)
-//   })
-//   .catch(error => {
-//     console.error(error)
-//   })
-// }
-
-// document.querySelector('#imageform').addEventListener('submit', event => {
-    
-//     handleImageUpload(event)
-// })
 
 
+createGIF('/images/')
+
+function createGIF(path){
+    gifshot.createGIF({
+        images: [
+          path+'photo_1.jpeg',
+          path+'photo_2.jpeg'  
+          // 'https://unsplash.it/200/200/?',
+          // 'https://unsplash.it/200/300/?',
+          // 'https://unsplash.it/300/200/?'
+        ],
+        interval: .4
+      }, function(obj) {
+        if (!obj.error) {
+          var image = obj.image,
+            animatedImage = document.getElementById('animatedGIF');
+          animatedImage.src = image;
+          //the src is encoded as data 64
+        }
+      })
+}
+
+
+    // var createGIF = function() {
+    //     gifshot.createGIF({
+    //       images: [
+    //         '/images/photo_1.jpeg',
+    //         '/images/photo_2.jpeg'  
+    //         // 'https://unsplash.it/200/200/?',
+    //         // 'https://unsplash.it/200/300/?',
+    //         // 'https://unsplash.it/300/200/?'
+    //       ],
+    //       interval: .4
+    //     }, function(obj) {
+    //       if (!obj.error) {
+    //         var image = obj.image,
+    //           animatedImage = document.getElementById('animatedGIF');
+    //         animatedImage.src = image;
+    //         //the src is encoded as data 64
+    //       }
+    //     })
+    //   };
+      
+      
+    //   createGIF();
