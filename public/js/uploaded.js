@@ -160,23 +160,23 @@ function checkFileDetails() {
                     var w = this.width;
                     var h = this.height;
 
-                    document.getElementById('fileInfo').innerHTML =
-                            'Name: <b>' + file.name + '</b> <br />' +
-                            'File Extension: <b>' + fileExtension + '</b> <br />' +
-                            'Size: <b>' + Math.round((file.size / 1024)) + '</b> KB <br />' +
-                            'Resolution: <b>' + w + 'x' + h + ' pixels </b> <br />';
+                    // document.getElementById('fileInfo').innerHTML =
+                    //         'Name: <b>' + file.name + '</b> <br />' +
+                    //         'File Extension: <b>' + fileExtension + '</b> <br />' +
+                    //         'Size: <b>' + Math.round((file.size / 1024)) + '</b> KB <br />' +
+                    //         'Resolution: <b>' + w + 'x' + h + ' pixels </b> <br />';
 
-                    if(w>600 && h>600){
-                        document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
-                        'Permission: <span style="color: green;font-size:24px"><b> Permitted</b></span>';
-                        document.getElementById("submit").disabled = false;
-                    }
-                    else{
-                        document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
-                        'Permission:<span style="color: red;font-size:24px"><b> Denied</b></span><br/> ' +
-                        '<span style="font-size:20px"><b>  請選擇解析度大於 600x600 之作品 </b></span>'
-                        document.getElementById("submit").disabled = true;
-                    }
+                    // if(w>600 && h>600){
+                    //     document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
+                    //     'Permission: <span style="color: green;font-size:24px"><b> Permitted</b></span>';
+                    //     document.getElementById("submit").disabled = false;
+                    // }
+                    // else{
+                    //     document.getElementById('fileInfo').innerHTML = document.getElementById('fileInfo').innerHTML+
+                    //     'Permission:<span style="color: red;font-size:24px"><b> Denied</b></span><br/> ' +
+                    //     '<span style="font-size:20px"><b>  請選擇解析度大於 600x600 之作品 </b></span>'
+                    //     document.getElementById("submit").disabled = true;
+                    // }
                 }
                 img_preview.setAttribute('style','width:200px');
                 //console.log(img_preview);
