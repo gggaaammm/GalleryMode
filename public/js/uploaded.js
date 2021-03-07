@@ -243,7 +243,8 @@ async function uplaod_demo_handler(event){
     body : JSON.stringify(data1)
     };   
                 
-    //send
+    console.log("database option"+options1);
+    //send to database
     //const response1 = fetch('/upload_photos', options1);
     //console.log(options1);
     //alert("file upload completed!");

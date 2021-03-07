@@ -14,6 +14,12 @@ const { domainToASCII } = require('url');
 const { resolve } = require('path');
 const { Socket } = require('dgram');
 
+
+const GIFEncoder = require('gifencoder');
+
+const pngFileStream = require('png-file-stream');
+
+
 // apply the express
 const app = express();
 
@@ -167,14 +173,10 @@ app.post('/up', function(req, res) {
   console.log("File management!");
   console.log(req.body);
 
-  console.log("it contains"+Object.keys(req.files.photo).length)
+  //req/body should contain pagenum: means one/multipl
+  const encoder = new GIFEncoder(1920, 1080);
 
-
-  // if single file
-
-  // if multiple file
-
-
+  console.log("raww: "+ JSON.stringify(req.files.photo));
 
   if (!req.files || Object.keys(req.files).length === 0) {
     res.redirect('/Upload');
@@ -186,20 +188,82 @@ app.post('/up', function(req, res) {
   {
     return res.status(400).send('File is to large, back to last page to try again!');
   }
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  let sampleFile = req.files.photo;
   
-  
-  console.log(sampleFile[0]);
-  console.log("+");
-  console.log(sampleFile[1]);
-  // Use the mv() method to place the file somewhere on your server
-  sampleFile.mv(__dirname +'/public/upload_images/'+req.files.photo.name, function(err) {
-    if (err)
-      return res.status(500).send(err);
+
+
+
+  const file_num = req.body.pagenum;
+  // if single file
+  if(file_num == 'one')
+  {
+    console.log("single file");
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let sampleFile = req.files.photo;
+    //Use the mv() method to place the file somewhere on your server
+    sampleFile.mv(__dirname +'/public/upload_images/'+req.files.photo.name, function(err) {
+      if (err)
+        return res.status(500).send(err);
+      res.redirect('/Vote');
+    });
+  }
+
+  // if multiple file
+  else if (file_num == 'multiple')
+  {
+    console.log("multiple files");
+    console.log("it contains"+Object.keys(req.files.photo).length)
+    var pic_cnt = Object.keys(req.files.photo).length;
+    var png_path=[];
+    
+    for(var cnt=0; cnt<pic_cnt; cnt++) //write to local file
+    {
+      console.log("this file is"+req.files.photo[cnt].name);
+      // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+      let sampleFile = req.files.photo[cnt];
+      png_path.push(__dirname +'/public/frames/'+req.files.photo[cnt].name);
+      //Use the mv() method to place the file somewhere on your server
+      sampleFile.mv(__dirname +'/public/frames/'+req.files.photo[cnt].name, function(err) {
+        // if (err)
+        //   return res.status(500).send(err);
+        //res.redirect('/Vote');
+      });
+    }
+
+
+    //read from local file to generate gif
+    const stream = pngFileStream(__dirname +'/public/frames/*.png')
+    .pipe(encoder.createWriteStream({ repeat: 0, delay: 500, quality: 10 }))
+    .pipe(fs.createWriteStream(__dirname +'/public/frames/myanimated.gif'));
+
+    stream.on('finish', function () {
+      // Process generated GIF
+      console.log(png_path);
+      for(var png_cnt=0; png_cnt < pic_cnt; png_cnt++)
+      {
+          // delete a file
+          fs.unlink(png_path[png_cnt], (err) => {
+            if (err) {
+                throw err;
+            }
+
+            console.log("File is deleted.");
+          });
+      }
+    });
+
+   
+
+
+
+
+    
     res.redirect('/Vote');
-  });
+  }
+
 });
+
+
+
 
 app.post('/vote_result',function(req,res){
     console.log("i got a request from vote result!");
