@@ -28,6 +28,7 @@ function timeout(){
         $('.demo').circleProgress('redraw'); // use current configuration and redraw
         $('.ui-state-default')[0].innerHTML="38";
         $('.ui-state-default')[0].style.backgroundImage="url('/images/photo_1.jpeg')";
+        $('.ui-state-default')[0].style.backgroundSize="100%";
         timeout();
     }, 5000);
 

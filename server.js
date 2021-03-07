@@ -16,7 +16,7 @@ const { Socket } = require('dgram');
 
 
 const GIFEncoder = require('gifencoder');
-
+const sizeOf = require('image-size');
 const pngFileStream = require('png-file-stream');
 
 
@@ -174,9 +174,9 @@ app.post('/up', function(req, res) {
   console.log(req.body);
 
   //req/body should contain pagenum: means one/multipl
-  const encoder = new GIFEncoder(1920, 1080);
+  
 
-  console.log("raww: "+ JSON.stringify(req.files.photo));
+  
 
   if (!req.files || Object.keys(req.files).length === 0) {
     res.redirect('/Upload');
@@ -222,34 +222,41 @@ app.post('/up', function(req, res) {
       let sampleFile = req.files.photo[cnt];
       png_path.push(__dirname +'/public/frames/'+req.files.photo[cnt].name);
       //Use the mv() method to place the file somewhere on your server
+      //create a sub-workspace for png to save
       sampleFile.mv(__dirname +'/public/frames/'+req.files.photo[cnt].name, function(err) {
-        // if (err)
-        //   return res.status(500).send(err);
-        //res.redirect('/Vote');
+      
       });
     }
 
+    sizeOf(__dirname +'/public/frames/'+req.files.photo[0].name, function (err, dimensions) {
+      console.log(dimensions.width, dimensions.height);
 
-    //read from local file to generate gif
-    const stream = pngFileStream(__dirname +'/public/frames/*.png')
-    .pipe(encoder.createWriteStream({ repeat: 0, delay: 500, quality: 10 }))
-    .pipe(fs.createWriteStream(__dirname +'/public/frames/myanimated.gif'));
+      const encoder = new GIFEncoder(dimensions.width, dimensions.height);
+      //read from local file to generate gif
+      const stream = pngFileStream(__dirname +'/public/frames/*.png')
+      .pipe(encoder.createWriteStream({ repeat: 0, delay: 500, quality: 10 }))
+      .pipe(fs.createWriteStream(__dirname +'/public/upload_images/'+req.body.name_i+'.gif'));
+      //todo: change the path to the gallery path
 
-    stream.on('finish', function () {
-      // Process generated GIF
-      console.log(png_path);
-      for(var png_cnt=0; png_cnt < pic_cnt; png_cnt++)
-      {
-          // delete a file
-          fs.unlink(png_path[png_cnt], (err) => {
-            if (err) {
-                throw err;
-            }
+      stream.on('finish', function () {
+        // Process generated GIF
+        console.log(png_path);
+        console.log("create gif completed, deleting images");
+        for(var png_cnt=0; png_cnt < pic_cnt; png_cnt++)
+        {
+            // delete all of the png file
+            fs.unlink(png_path[png_cnt], (err) => {
+              if (err) {
+                  throw err;
+              }
+             
+            });
+        }
+        console.log("Image files are deleted.");
+      });
 
-            console.log("File is deleted.");
-          });
-      }
     });
+    
 
    
 
@@ -317,9 +324,10 @@ app.post('/vote_result',function(req,res){
 });
 
 app.get('/get_result', function(req,res){
+  console.log("searching database");
   var data = [];
   database.find({}).sort({vote:-1}).limit(5).exec(function(err,docs){
-    //console.log(docs);
+    console.log(docs);
 
     docs.forEach(function(d) {
       if(d.file_name != undefined){

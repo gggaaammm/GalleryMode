@@ -104,7 +104,7 @@ function checkFileDetails() {
             if(besingle!=1 && i ==fi.files.length -1 )
             {
                 console.log("last pic of gif");
-                createGIF();
+                //createGIF();
             }
         }
 
@@ -174,6 +174,7 @@ function checkFileDetails() {
                 //set specific number of images
                 $('.ui-state-default')[number].style.display = "block";
                 $('.ui-state-default')[number].style.backgroundImage='url('+bgimg+')';
+                $('.ui-state-default')[number].style.backgroundSize="100%";
                 
             };
             reader.readAsDataURL(file);
@@ -207,8 +208,8 @@ async function uplaod_demo_handler(event){
     let formData = new FormData(),
         files = $('#upload_file').get(0).files,
         picture_name = $('#name').val(),
-        picture_description = $('#description').val();
-        file_name = files[0].name
+        picture_description = $('#description').val(),
+        file_name = files[0].name,
         vote = 0;
     console.log("btn handler");
     console.log("file :", files); 
@@ -231,7 +232,10 @@ async function uplaod_demo_handler(event){
         return false;
     }
 
-
+    if(files.length >1) 
+    {
+        file_name = picture_name+'.gif';
+    }
 
     //save it as json
     const data1 = {picture_name, picture_description, file_name ,vote};
@@ -244,12 +248,13 @@ async function uplaod_demo_handler(event){
     };   
                 
     console.log("database option"+options1);
+    
     //send to database
-    //const response1 = fetch('/upload_photos', options1);
-    //console.log(options1);
-    //alert("file upload completed!");
-    // const res_data =await response;
-    // console.log(res_data);
+    const response1 = fetch('/upload_photos', options1);
+    console.log(options1);
+    alert("File upload completed!");
+    const res_data =await response;
+    console.log(res_data);
 }
 
 
@@ -261,20 +266,20 @@ $( function() {
 
 
   //gif preview 
-  var createGIF = function() {
-    gifshot.createGIF({
-      images: [
-        'https://unsplash.it/200/200/?',
-        'https://unsplash.it/200/300/?',
-        'https://unsplash.it/300/200/?'
-      ],
-      interval: .4
-    }, function(obj) {
-      if (!obj.error) {
-        var image = obj.image,
-          animatedImage = document.getElementById('animatedGIF');
-        animatedImage.src = image;
-        //the src is encoded as base64
-      }
-    })
-  };
+//   var createGIF = function() {
+//     gifshot.createGIF({
+//       images: [
+//         'https://unsplash.it/200/200/?',
+//         'https://unsplash.it/200/300/?',
+//         'https://unsplash.it/300/200/?'
+//       ],
+//       interval: .4
+//     }, function(obj) {
+//       if (!obj.error) {
+//         var image = obj.image,
+//           animatedImage = document.getElementById('animatedGIF');
+//         animatedImage.src = image;
+//         //the src is encoded as base64
+//       }
+//     })
+//   };
