@@ -2,6 +2,7 @@
 $(function(){
     console.log("upload");
     $('.ui-state-default').hide();
+    document.forms["upload-photos"]["single"].checked=true;
     $(document).on("submit", "#upload-photos", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#uploadForm", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#upload-photos", function(event){ uplaod_btn_handler(event); });
