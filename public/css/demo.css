@@ -1,0 +1,57 @@
+.wrap {
+    display: flex
+  }
+  
+  .box {
+    flex: 1 1 30%;
+    text-align: center;
+    padding: 2em;
+    position: relative;
+    margin: 0.3em;
+    min-height: 8em
+  }
+  
+  .box input {
+    position: absolute;
+    left: -999em
+  }
+
+  .details{
+    text-align: left;
+
+  }
+  
+  .check,
+  label {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  label {
+    padding: 1em;
+    z-index: 10;
+  }
+  
+  .check {
+    border: solid 5px rgb(212, 212, 212);
+    z-index: -1;
+  }
+  
+  input:checked ~ .check {
+    border-color: rgb(0, 0, 0);
+  }
+  
+  #left-box .check {
+    background: #fdd
+  }
+  
+  #center-box .check {
+    background: #ffd
+  }
+  
+  #right-box .check {
+    background: #def
+  }

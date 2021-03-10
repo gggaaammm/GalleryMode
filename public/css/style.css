@@ -216,8 +216,8 @@ body {
 
 #qr{
    position: fixed;
-   bottom: 20px;
-   right: 20px;
+   bottom: 0px;
+   right: 0px;
    z-index: 1;
    padding: 0px;
    margin: 0px;
@@ -326,7 +326,7 @@ body {
   }
 
 
-  /*.fancybox-caption.caption--image {
+.fancybox-caption.caption--image {
     position:fixed;
     width: 100%;
     bottom: 0;
@@ -337,7 +337,7 @@ body {
  
  .fancybox-inner > .fancybox-caption {
      display: none;
- } */
+ } 
 
  .fancybox-caption-wrap {
   pointer-events: all;

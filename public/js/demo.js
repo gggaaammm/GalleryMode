@@ -39,18 +39,22 @@ $( function() {
     $( "#sortable" ).disableSelection();
   } );
 
-$('input:radio[name="pagenum"]').change(
-    function(){
-        if ($(this).is(':checked') && $(this).val() == 'one') {
-            // append goes here
-            console.log("one is selected");
-            document.getElementById("disp").innerHTML = "One";
-        }
-        else
-        {
-            document.getElementById("disp").innerHTML = "Multiple";
-        }
-    });
+  $( function() {
+    $( "input" ).checkboxradio();
+  } );  
+
+// $('input:radio[name="pagenum"]').change(
+//     function(){
+//         if ($(this).is(':checked') && $(this).val() == 'one') {
+//             // append goes here
+//             console.log("one is selected");
+//             document.getElementById("disp").innerHTML = "One";
+//         }
+//         else
+//         {
+//             document.getElementById("disp").innerHTML = "Multiple";
+//         }
+//     });
 
 
 createGIF('/images/')

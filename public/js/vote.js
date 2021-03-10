@@ -87,9 +87,6 @@ function create_new_votes(data){
 	// Custom options
 	$( '[data-fancybox="gallery"]' ).fancybox({
 
-		
-	
-
 		caption : function( instance, item ) {
 			var caption = $(this).data('caption') || '';
 			//console.log(selected[0]);
@@ -97,16 +94,16 @@ function create_new_votes(data){
 			return ( caption.length ? caption + '<br />' : '' )/* + 'Image <span data-fancybox-index></span> of <span data-fancybox-count></span>'*/;
 		  },
 
-	/*beforeShow: function() {
+	beforeShow: function() {
         $('.caption--image').remove();
 		
-    },*/
+    },
     afterShow: function() {
 		
 		//$('.fancybox-caption__body').remove();
         var caption = $(".fancybox-caption");
 		var innerCaption = caption.clone().addClass('caption--image');
-        //$(".fancybox-slide--current .fancybox-content").append(innerCaption);
+        $(".fancybox-slide--current .fancybox-content").append(innerCaption);
         caption.not('.caption--image').addClass('caption--bottom');
 
 		$(".fancy_btn").on('click', function(event){
@@ -121,18 +118,18 @@ function create_new_votes(data){
 			var parent = document.getElementById($.fancybox.getInstance().current.index+1 );
 			var child = parent.children[0];
 
-			console.log("a user click "+$.fancybox.getInstance().current.index);
+			console.log("clicking button index "+$.fancybox.getInstance().current.index);
 			console.log("get child:"+child.innerHTML);
 
 			//trigger vote button to unvote
 			var src = $('.fancybox-slide--current .fancybox-image').attr('src');
 			var idx = $('a[href="'+src+'"]')[0];
-			console.log(src);
-			console.log(idx.children[0].id);
-			console.log(selected[idx.children[0].id]);
+			console.log("get src:"+src);
+			console.log("get idx.children.id="+idx.children[0].id);
+			console.log("checck if this is selected:"+selected[idx.children[0].id]);
 			if(selected[idx.children[0].id]=="N") 
 			{
-				if(current_votes>limit)
+				if(current_votes>=limit)
 				{
 					alert("you cannot vote greaters than "+limit);
 				}
@@ -184,9 +181,7 @@ function create_new_votes(data){
 			//update the fancy box caption
 			console.log($.fancybox.getInstance().group[ $.fancybox.getInstance().current.index ].opts.caption);
 			console.log($.fancybox.getInstance().current.opts.caption);
-			//console.log("not changing:"+ data[$.fancybox.getInstance().current.index].picture_name);
-			//console.log("not changing:"+ data[$.fancybox.getInstance().current.index].picture_description);
-			//console.log("changing to :"+newbtn)
+			
 			
 			$.fancybox.getInstance().current.opts.$orig.data('caption', newcaption);
 			$.fancybox.getInstance().group[ $.fancybox.getInstance().current.index ].opts.caption = newcaption;

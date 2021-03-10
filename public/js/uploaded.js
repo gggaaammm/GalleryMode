@@ -2,7 +2,7 @@
 $(function(){
     console.log("upload");
     $('.ui-state-default').hide();
-    document.forms["upload-photos"]["single"].checked=true;
+    
     $(document).on("submit", "#upload-photos", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#uploadForm", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#upload-photos", function(event){ uplaod_btn_handler(event); });
@@ -10,14 +10,14 @@ $(function(){
 });
 
 //todo: multiple handling
-$('input:radio[name="pagenum"]').change(
+$('input:radio[name="mode"]').change(
     
     function(){
         let toggle = document.querySelector('#upload_file');
-        if ($(this).is(':checked') && $(this).val() == 'one') {
+        if ($(this).is(':checked') && $(this).val() == 'single_img') {
             // append goes here
             console.log("one is selected");
-            document.getElementById("disp").innerHTML = "One";
+            //document.getElementById("disp").innerHTML = "One";
             if(toggle){
                 toggle.removeAttribute('multiple');
             }
@@ -25,7 +25,7 @@ $('input:radio[name="pagenum"]').change(
         }
         else
         {
-            document.getElementById("disp").innerHTML = "Multiple";
+            //document.getElementById("disp").innerHTML = "Multiple";
             if(toggle){
                 toggle.setAttribute('multiple', 'multiple');
             }
@@ -105,6 +105,7 @@ function checkFileDetails() {
             if(besingle!=1 && i ==fi.files.length -1 )
             {
                 console.log("last pic of gif");
+                //create a preview of gif
                 //createGIF();
             }
         }

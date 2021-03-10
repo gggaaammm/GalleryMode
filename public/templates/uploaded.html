@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/manage.css">
+    <link rel="stylesheet" href="/css/demo.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -22,6 +23,26 @@
             method='post' 
             encType="multipart/form-data" >
                 <div class="col-md-8 offset-md-2">
+                    <div class ="form-group">
+                        <h3 class>選擇模式</h3>
+                        <div class="wrap">
+                            <div id="left-box" class="box">
+                              <label for="box1">單張圖片</label>
+                              <input id="box1" type="radio" name="mode" value="single_img" checked>
+                              <br>
+                              <div class="details">支援單張圖片上傳</div>
+                              <img src="logo/single.png" style="width:70px ;height:70px;">
+                              <div class="check"></div>
+                            </div>
+                            <div id="right-box" class="box">
+                                <label for="box2">多張圖片</label>
+                                <input id="box2" type="radio" name="mode" value="multiple_img">
+                                <br>
+                                <div class="details">支援多張圖片上傳</div>
+                                <img src="logo/multiple.png" style="width:70px ;height:70px;">
+                                <div class="check"></div>
+                            </div>
+                    </div>
                     <div class="form-group ">
                         <h3 class="required">圖片標題(必填)</h3>
                         <input type="text" id="name" name = "name_i" class="form-control" placeholder="10字為限" maxlength = "10" required>
@@ -34,14 +55,6 @@
                     
                     <div class="form-group">
                         <h3 >上傳圖檔</h3>
-                        <div class ="form-group">
-                            <div class ="form-group">
-                                <input type="radio" name="pagenum"  id="single" value="one">Single
-                                <input type="radio" name="pagenum"  id="multi" value="multiple">Multiple
-                            </div>
-                            <div id="disp" style= "color:green; font-size:18px; font-weight:bold;"> 
-                            </div> 
-                        </div>
                         <h6> 解析度要求：至少600x600像素
                         </h6>
                         <h6> 拉動圖片來排序(由左至右，由上至下)
@@ -50,7 +63,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-md-9">
-                            <input id="upload_file" name="photo" type="file" accept=".png,.jpg,.jpeg, .bmp, .gif " onchange="checkFileDetails()" multiple="multiple">
+                            <input id="upload_file" name="photo" type="file" accept=".png,.jpg,.jpeg, .bmp, .gif " onchange="checkFileDetails()">
                         </div>
                         <div class="col-md-3 center">
                             <input id="submit" class="btn btn-warning" type="submit" value="上傳 Upload"/>

@@ -192,9 +192,9 @@ app.post('/up', function(req, res) {
 
 
 
-  const file_num = req.body.pagenum;
+  const file_num = req.body.mode;
   // if single file
-  if(file_num == 'one')
+  if(file_num == 'single_img')
   {
     console.log("single file");
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
@@ -208,7 +208,7 @@ app.post('/up', function(req, res) {
   }
 
   // if multiple file
-  else if (file_num == 'multiple')
+  else if (file_num == 'multiple_img')
   {
     console.log("multiple files");
     console.log("it contains"+Object.keys(req.files.photo).length)
