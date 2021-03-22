@@ -174,6 +174,7 @@ app.post('/up', function(req, res) {
   console.log(req.body);
 
   //req/body should contain pagenum: means one/multipl
+  //if multiple, should recieve the order of imgs
   
 
   
@@ -228,6 +229,7 @@ app.post('/up', function(req, res) {
       });
     }
 
+    //use other method to generate gifs
     sizeOf(__dirname +'/public/frames/'+req.files.photo[0].name, function (err, dimensions) {
       console.log(dimensions.width, dimensions.height);
 
@@ -237,7 +239,7 @@ app.post('/up', function(req, res) {
       .pipe(encoder.createWriteStream({ repeat: 0, delay: 500, quality: 10 }))
       .pipe(fs.createWriteStream(__dirname +'/public/upload_images/'+req.body.name_i+'.gif'));
       //todo: change the path to the gallery path
-
+      //kill the png files
       stream.on('finish', function () {
         // Process generated GIF
         console.log(png_path);
