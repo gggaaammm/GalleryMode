@@ -16,7 +16,7 @@ $(function(){
 
 	
 });
-var selected = Array(20); //need modified;
+var selected = Array(40); //need modified;
 
 
 
@@ -469,5 +469,5 @@ function set_fancy_option()
 
 function click_events()
 {
-
+	
 }

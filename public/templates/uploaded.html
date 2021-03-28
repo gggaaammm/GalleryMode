@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/manage.css">
     <link rel="stylesheet" href="/css/demo.css">
+    <script src="jquery.ui.touch-punch.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -16,7 +17,7 @@
     </style>
 <body>
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-md-2">
             <h2 id="title" class="center">上傳檔案</h2>
             <br>
             <form id="upload-photos" class="row" action='/up' 
@@ -30,7 +31,7 @@
                               <label for="box1">圖片模式</label>
                               <input id="box1" type="radio" name="mode" value="single_img" checked>
                               <br>
-                              <div class="details">單張圖片上傳</div>
+                              <div class="details">單張圖片上傳, 系統將圖片直接展示在畫廊</div>
                               <img src="logo/single.png" style="width:70px ;height:70px;">
                               <div class="check"></div>
                             </div>
@@ -38,12 +39,13 @@
                                 <label for="box2">動畫模式</label>
                                 <input id="box2" type="radio" name="mode" value="multiple_img">
                                 <br>
-                                <div class="details">多張圖片上傳, 系統將其合成gif動畫</div>
+                                <div class="details">多張圖片上傳, 系統將圖檔轉化成動畫, 並展示在畫廊</div>
                                 <img src="logo/multiple.png" style="width:70px ;height:70px;">
                                 <div class="check"></div>
                             </div>
                     </div>
                     <div class="form-group ">
+                        <br>
                         <h3 class="required">圖片標題(必填)</h3>
                         <input type="text" id="name" name = "name_i" class="form-control" placeholder="10字為限" maxlength = "10" required>
                     </div>
