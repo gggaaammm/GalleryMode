@@ -2,7 +2,6 @@
 $(function(){
     console.log("upload");
     $('.ui-state-default').hide();
-    
     $(document).on("submit", "#upload-photos", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#uploadForm", function(event){ uplaod_demo_handler(event); });
     //$(document).on("submit", "#upload-photos", function(event){ uplaod_btn_handler(event); });
@@ -159,6 +158,14 @@ function checkFileDetails() {
             var reader = new FileReader(); // CREATE AN NEW INSTANCE.
             
             console.log("id: "+number);
+
+            var imginputform = document.createElement('input');
+            imginputform.setAttribute('class', 'image_order');
+            imginputform.setAttribute('name', 'img_order');
+            imginputform.setAttribute('value', number+1);
+            $('.imgform').append(imginputform);
+            $('.imgform').hide();
+
             reader.onload = function (e) {
                 var img = new Image();   
                 img.src = e.target.result;
@@ -177,6 +184,7 @@ function checkFileDetails() {
                 $('.ui-state-default')[number].style.display = "block";
                 $('.ui-state-default')[number].style.backgroundImage='url('+bgimg+')';
                 $('.ui-state-default')[number].style.backgroundSize="100%";
+                
                 
             };
             reader.readAsDataURL(file);
@@ -261,7 +269,29 @@ async function uplaod_demo_handler(event){
 
 
 $( function() {
-    $( "#sortable" ).sortable();
+    $( "#sortable" ).sortable({
+        start: function(event, ui) {
+            var start_pos = ui.item.index();
+            ui.item.data('start_pos', start_pos);
+        },
+        change: function(event, ui){
+            console.log("changing :O");
+            var start_pos = ui.item.data('start_pos');
+            var index = ui.placeholder.index();
+            console.log("this is"+start_pos+"and"+index);
+
+        },
+        update: function(event, ui){
+            //total solution: when changing, update whole input again
+            var numItems = $('.image_order').length;
+            console.log("total image num: "+numItems);
+            for(i=0; i<numItems; i++)
+            {
+                $('.image_order')[i].value = $('.ui-state-default')[i].innerHTML;
+               
+            }
+        }
+    });
     $( "#sortable" ).disableSelection();
   } );
 

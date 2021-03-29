@@ -8,6 +8,7 @@ var io = require('socket.io');
 const fileupload = require('express-fileupload');
 
 
+
 const formidable = require('formidable');
 const { response } = require('express');
 const { domainToASCII } = require('url');
@@ -19,6 +20,8 @@ const GIFEncoder = require('gifencoder');
 const sizeOf = require('image-size');
 const pngFileStream = require('png-file-stream');
 
+
+const path = require('path');
 
 // apply the express
 const app = express();
@@ -221,21 +224,39 @@ app.post('/up', function(req, res) {
       console.log("this file is"+req.files.photo[cnt].name);
       // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
       let sampleFile = req.files.photo[cnt];
-      png_path.push(__dirname +'/public/frames/'+req.files.photo[cnt].name);
+      
       //Use the mv() method to place the file somewhere on your server
       //create a sub-workspace for png to save
       sampleFile.mv(__dirname +'/public/frames/'+req.files.photo[cnt].name, function(err) {
       
       });
+      
+    }
+
+    //renaming the file
+    for(var cnt=0 ;cnt<pic_cnt; cnt++)
+    {
+      console.log("order:"+req.body.img_order[cnt]);//1~6
+      newcnt = cnt+1;
+      console.log("rename "+req.files.photo[req.body.img_order[cnt]-1].name+" as: frame"+newcnt+'.png');
+
+      fs.rename(__dirname +'/public/frames/'+req.files.photo[cnt].name, __dirname +'/public/frames_tmp/frame'+newcnt+'.png', function(err) {
+        
+        if(err){
+          console.log("error renaming file");
+          throw err;
+         }
+      });
+      png_path.push(__dirname +'/public/frames_tmp/frame'+newcnt+'.png');
     }
 
     //use other method to generate gifs
-    sizeOf(__dirname +'/public/frames/'+req.files.photo[0].name, function (err, dimensions) {
+    sizeOf(__dirname +'/public/frames_tmp/frame1.png', function (err, dimensions) {
       console.log(dimensions.width, dimensions.height);
 
       const encoder = new GIFEncoder(dimensions.width, dimensions.height);
       //read from local file to generate gif
-      const stream = pngFileStream(__dirname +'/public/frames/*.png')
+      const stream = pngFileStream(__dirname +'/public/frames_tmp/frame*.png')
       .pipe(encoder.createWriteStream({ repeat: 0, delay: 500, quality: 10 }))
       .pipe(fs.createWriteStream(__dirname +'/public/upload_images/'+req.body.name_i+'.gif'));
       //todo: change the path to the gallery path
@@ -251,7 +272,6 @@ app.post('/up', function(req, res) {
               if (err) {
                   throw err;
               }
-             
             });
         }
         console.log("Image files are deleted.");
